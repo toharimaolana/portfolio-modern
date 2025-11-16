@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+
+/* 1. Impor font Google Anda di paling atas */
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&family=Roboto:wght@400;500;700&display=swap');
+
+/* 2. Impor dependensi Tailwind */
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #060010;
+  --color-bg-surface: #4A2574;
+
+  /* 2. Teks */
+  --color-text-light: #EDE9FE;
+  --color-text-muted: #A6A6A6;
+
+  /* 3. Warna Interaksi (Brand) */
+  --color-primary: #7338A0;
+  --color-secondary: #924DBF;
+  --color-tertiary: #5227ff;
+
+  /* 4. Warna Aksen & Border */
+  --color-border-highlight: #9E72C3;
+  --color-accent-glow: #C77DFF;
+
+  /* === FONT ANDA === */
+  /* 'fontFamily' menjadi '--font' */
+  --font-poetsen: "Poetsen One", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+}
