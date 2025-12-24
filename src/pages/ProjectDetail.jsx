@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Calendar, User } from 'lucide-react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { Helmet } from 'react-helmet-async';
 import { projects } from '../data/projects';
 
 const ProjectDetail = () => {
@@ -85,9 +84,6 @@ const ProjectDetail = () => {
 
   return (
     <div className="bg-bg-base min-h-screen">
-      <Helmet>
-        <title>{projectMetadata.title} | Portfolio</title>
-      </Helmet>
 
       {/* HERO SECTION */}
       <section className="relative pt-24 pb-12 px-6">
