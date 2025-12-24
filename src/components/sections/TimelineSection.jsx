@@ -1,7 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-// Import custom UI components
 import SectionHeader from '../ui/SectionHeader.jsx';
 
 // Timeline data
@@ -26,21 +24,23 @@ const myJourneyItems = [
   }
 ];
 
-// Main Timeline Component
 const TimelineSection = () => {
   return (
-    <section className="bg-bg-base mx-auto max-w-[1200px] relative overflow-hidden">
+    <section 
+      className="relative mx-auto max-w-[1200px] overflow-hidden bg-bg-base"
+      aria-label="Professional journey timeline"
+    >
       {/* Background Ambient Glow */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20"
+          className="absolute left-1/4 top-1/4 h-[600px] w-[600px] rounded-full opacity-20 blur-[120px]"
           animate={{
             background: [
               'radial-gradient(circle, rgba(115, 56, 160, 0.3) 0%, transparent 70%)',
               'radial-gradient(circle, rgba(199, 125, 255, 0.3) 0%, transparent 70%)',
               'radial-gradient(circle, rgba(115, 56, 160, 0.3) 0%, transparent 70%)',
             ],
-            scale: [1, 1.2, 1],
+            scale: [1, 1.15, 1],
           }}
           transition={{
             duration: 10,
@@ -51,23 +51,23 @@ const TimelineSection = () => {
       </div>
 
       {/* Main Container */}
-      <div className="w-full mx-auto px-6 py-24 relative z-10">
+      <div className="relative z-10 mx-auto w-full px-6 py-24">
         {/* Section Header */}
         <SectionHeader
           subheading="My Journey"
           heading="Experience"
-          description="Jejak langkah dan pencapaian penting dalam perjalanan karir profesional saya."
+          description="A curated timeline of my professional growth, highlighting key milestones and high-impact solutions delivered in web engineering."
           align="left"
         />
 
         {/* Timeline Wrapper */}
         <div className="relative">
           {/* Vertical Line with Gradient */}
-          <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-border-highlight/5 via-border-highlight/30 to-border-highlight/5" />
-          
+          <div className="absolute bottom-0 left-0 top-0 w-[2px] bg-gradient-to-b from-border-highlight/5 via-border-highlight/30 to-border-highlight/5" />
+
           {/* Animated Glow on Line */}
           <motion.div
-            className="absolute left-[-1px] top-0 w-1 h-32 bg-gradient-to-b from-accent-glow/80 via-accent-glow/40 to-transparent blur-sm"
+            className="absolute left-[-1px] top-0 h-32 w-1 bg-gradient-to-b from-accent-glow/80 via-accent-glow/40 to-transparent blur-sm"
             animate={{
               y: ['0%', '400%', '0%'],
             }}
@@ -79,11 +79,11 @@ const TimelineSection = () => {
           />
 
           {/* Timeline Items */}
-          <div className="space-y-12">
+          <ol className="space-y-12">
             {myJourneyItems.map((item, index) => (
-              <motion.div
+              <motion.li
                 key={index}
-                className="relative pl-12 group"
+                className="group relative pl-12"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -94,7 +94,7 @@ const TimelineSection = () => {
                 }}
               >
                 {/* Dot Indicator with Ping Animation */}
-                <div className="absolute left-[-5px] top-2 w-3 h-3 rounded-full bg-accent-glow z-10">
+                <div className="absolute left-[-5px] top-2 z-10 h-3 w-3 rounded-full bg-accent-glow">
                   {/* Outer Ring */}
                   <motion.div
                     className="absolute inset-0 rounded-full bg-accent-glow"
@@ -109,7 +109,7 @@ const TimelineSection = () => {
                       delay: index * 0.3,
                     }}
                   />
-                  
+
                   {/* Inner Glow */}
                   <div 
                     className="absolute inset-0 rounded-full bg-accent-glow blur-sm"
@@ -121,73 +121,86 @@ const TimelineSection = () => {
 
                 {/* Connecting Line to Content */}
                 <motion.div
-                  className="absolute left-[7px] top-3 w-8 h-[2px] bg-gradient-to-r from-accent-glow/50 to-border-highlight/20"
+                  className="absolute left-[7px] top-3 h-[2px] w-8 bg-gradient-to-r from-accent-glow/50 to-border-highlight/20"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.15 + 0.3 }}
                 />
 
-                {/* Content Card */}
-                <motion.div
-                  className="relative bg-bg-surface/20 backdrop-blur-sm border border-border-highlight/20 rounded-2xl p-6 group-hover:border-accent-glow/40 transition-all duration-300"
+                {/* Content Card - GLASSMORPHISM */}
+                <motion.article
+                  className="relative rounded-2xl border border-border-highlight/40 bg-bg-surface/20 p-6 backdrop-blur-xl shadow-[0_18px_60px_rgba(0,0,0,0.45)] transition-all duration-300 will-change-transform group-hover:border-accent-glow/50"
                   whileHover={{ 
-                    scale: 1.02,
-                    boxShadow: '0 0 30px rgba(199, 125, 255, 0.15)',
+                    scale: 1.015,
+                    boxShadow: '0 20px 80px rgba(199, 125, 255, 0.2)',
                   }}
                 >
                   {/* Card Glow Effect on Hover */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-glow/0 via-accent-glow/0 to-accent-glow/0 group-hover:from-accent-glow/5 group-hover:via-accent-glow/0 group-hover:to-accent-glow/5 transition-all duration-300 pointer-events-none" />
-                  
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-glow/0 via-accent-glow/0 to-accent-glow/0 transition-all duration-300 group-hover:from-accent-glow/5 group-hover:via-accent-glow/0 group-hover:to-accent-glow/5" />
+
                   {/* Content */}
                   <div className="relative z-10">
-                    {/* Year Badge */}
-                    <motion.span
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-glow/10 border border-accent-glow/30 text-sm font-bold text-accent-glow font-roboto mb-3"
+                    {/* Year Badge - GLASSMORPHISM */}
+                    <motion.time
+                      dateTime={item.year}
+                      className="inline-flex items-center gap-2 rounded-full border border-border-highlight/40 bg-bg-surface/20 px-3 py-1.5 text-xs font-roboto font-medium uppercase tracking-[0.18em] text-text-light/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] will-change-transform"
                       whileHover={{ scale: 1.05 }}
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-4 w-4 text-accent-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
-                      {item.year}
-                    </motion.span>
+                      <span className="text-accent-glow">{item.year}</span>
+                    </motion.time>
 
                     {/* Title */}
-                    <h3 className="text-2xl sm:text-3xl font-poetsen text-text-light mt-2 mb-3 group-hover:text-accent-glow transition-colors duration-300">
+                    <h3 className="mt-3 font-poetsen text-2xl text-text-light transition-colors duration-300 sm:text-3xl group-hover:text-accent-glow">
                       {item.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-text-muted font-roboto leading-relaxed max-w-2xl text-base">
+                    <p className="mt-3 max-w-2xl font-roboto text-base leading-relaxed text-text-muted">
                       {item.description}
                     </p>
 
+                    {/* Tags - GLASSMORPHISM */}
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {item.tags.map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className="inline-flex items-center rounded-full border border-border-highlight/30 bg-bg-surface/15 px-3 py-1 text-xs font-roboto font-medium text-text-light/70 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.25)]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
                     {/* Decorative Bottom Line */}
                     <motion.div
-                      className="mt-4 h-1 bg-gradient-to-r from-accent-glow/50 to-transparent rounded-full"
+                      className="mt-4 h-1 rounded-full bg-gradient-to-r from-accent-glow/50 to-transparent"
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: index * 0.15 + 0.5 }}
                     />
                   </div>
-                </motion.div>
-              </motion.div>
+                </motion.article>
+              </motion.li>
             ))}
-          </div>
+          </ol>
         </div>
 
         {/* End Marker */}
         <motion.div
-          className="relative pl-12 mt-12"
+          className="relative mt-12 pl-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <div className="absolute left-[-7px] top-0 w-5 h-5 rounded-full border-2 border-accent-glow bg-bg-base flex items-center justify-center">
+          <div className="absolute left-[-7px] top-0 flex h-5 w-5 items-center justify-center rounded-full border-2 border-accent-glow bg-bg-base">
             <motion.div
-              className="w-2 h-2 rounded-full bg-accent-glow"
+              className="h-2 w-2 rounded-full bg-accent-glow"
               animate={{
                 scale: [1, 1.3, 1],
                 opacity: [0.8, 1, 0.8],
@@ -199,8 +212,8 @@ const TimelineSection = () => {
               }}
             />
           </div>
-          
-          <p className="text-text-muted font-roboto text-sm italic">
+
+          <p className="font-roboto text-sm italic text-text-muted">
             Keep moving forward...
           </p>
         </motion.div>

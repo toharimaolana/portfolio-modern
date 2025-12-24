@@ -22,13 +22,13 @@ const ProjectsSection = () => {
   }, [selectedCategory]);
 
   return (
-    <section className="relative w-full py-24 bg-bg-base overflow-hidden">
+    <section className="relative w-full bg-bg-base overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6">
         
         <SectionHeader
-          subheading="My Portfolio"
+          subheading="My Portfolio"     
           heading="Recent Works"
-          description="Berikut adalah beberapa proyek pilihan yang menunjukkan keahlian saya dalam web development dan UI/UX design."
+          description="A curated selection of projects demonstrating my technical expertise in modern web development and user-centric UI/UX design."
           align="center"
         />
 

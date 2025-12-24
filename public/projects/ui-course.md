@@ -1,5 +1,5 @@
 ---
-title: Course Mobile App Design
+ Course Mobile App Design
 ---
 
 # Project: Course Mobile App Design

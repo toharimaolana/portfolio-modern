@@ -4,11 +4,14 @@ import React from 'react';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
 // Import custom UI components and sections
-import HeroSection from '../components/sections/HeroSection';
-import CurvedLoop from '../components/ui/CurvedLoop';
-import TimelineSection from '../components/sections/TimelineSection';
-import ProjectsSection from '../components/sections/ProjectsSection'; // <-- NAMA YANG BENAR
-import ServicesSection from '../components/sections/ServicesSection';
+import HeroSection from '@/components/sections/HeroSection';
+import CurvedLoop from '@/components/ui/CurvedLoop';
+import TimelineSection from '@/components/sections/TimelineSection';
+import ProjectsSection from '@/components/sections/ProjectsSection'; 
+import CTASection from '@/components/sections/CTASection'; 
+
+
+// import ServicesSection from '@/components/sections/ServicesSection';
 
 const techLogos = [
   { node: <SiReact />, title: "React", href: "https://react.dev" },
@@ -40,7 +43,7 @@ const myJourneyItems = [
 
 const HomePage = () => {
   return (
-    <div className='min-h-screen'>
+    <main className='min-h-screen'>
         <HeroSection/>
 
         <CurvedLoop 
@@ -63,8 +66,10 @@ const HomePage = () => {
         
         <ProjectsSection />
 
+        <CTASection />
+
         {/* <ServicesSection /> */}
-    </div>
+    </main>
   );
 };
 
