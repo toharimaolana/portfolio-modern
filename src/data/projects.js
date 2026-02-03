@@ -1,7 +1,7 @@
 export const projects = [
     {
         id: "1",
-        title: "Project MyTOKO", // Judul disamakan dengan Markdown
+        title: "E-Commerce Website",
         category: "Web Development",
         year: "2023",
         // --- TAMBAHAN DATA UNTUK SIDEBAR ---
@@ -17,8 +17,34 @@ export const projects = [
         }
     },
     {
+        id: "3",
+        title: "Website Pengduan Masyarakat",
+        category: "Web Development",
+        year: "2025",
+        client: "Personal Project",
+        role: "Full-Stack Developer",
+        thumbnail: "/images/thumbnail-pem.webp",
+        getContent: async function () {
+            const response = await fetch("/projects/web-pengaduan.md");
+            return await response.text();
+        }
+    },
+    {
         id: "2",
-        title: "Design Course",
+        title: "UI Design Health App",
+        category: "UI Design",
+        year: "2025",
+        client: "Personal Project",
+        role: "UI/UX Designer",
+        thumbnail: "/images/thumbnail-helena.webp",
+        getContent: async function () {
+            const response = await fetch("/projects/ui-hellena.md");
+            return await response.text();
+        }
+    },
+    {
+        id: "3",
+        title: "UI Design Course",
         category: "UI Design",
         year: "2025",
         client: "Competition Project",
@@ -26,6 +52,19 @@ export const projects = [
         thumbnail: "/images/thumbnail-course.webp",
         getContent: async function () {
             const response = await fetch("/projects/ui-course.md");
+            return await response.text();
+        }
+    },
+    {
+        id: "4",
+        title: "UI Design Bonsai Store",
+        category: "UI Design",
+        year: "2025",
+        client: "Personal Project",
+        role: "UI/UX Designer",
+        thumbnail: "/images/thumbnail-bonsaify.webp",
+        getContent: async function () {
+            const response = await fetch("/projects/ui-bonsaify.md");
             return await response.text();
         }
     },
