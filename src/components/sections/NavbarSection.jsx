@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useLocation, Link } from 'react-router-dom';
 
 const NavbarComponent = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
+  const location = useLocation(); // Deteksi current route
 
-  // --- 1. LOGIKA SCROLL SEDERHANA ---
-  // Kita gunakan logika simpel: Navbar transparan di atas, 
-  // lalu menjadi solid/blur halus saat di-scroll. Tidak perlu bentuk kapsul aneh-aneh.
-  
   // Efek blur & background muncul halus saat scroll
   const navBackground = useTransform(
     scrollY, 
@@ -20,15 +18,13 @@ const NavbarComponent = () => {
   const navBackdrop = useTransform(scrollY, [0, 50], ["blur(0px)", "blur(12px)"]);
   const navBorder = useTransform(scrollY, [0, 50], ["1px solid rgba(255,255,255,0)", "1px solid rgba(255,255,255,0.1)"]);
 
-  // Gunakan useEffect untuk set state 'scrolled' jika masih perlu logika lain, 
-  // tapi untuk styling kita pakai 'useTransform' di atas agar performa tinggi.
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Kunci tombol mobile agar body tidak bisa discroll saat menu terbuka
+  // Kunci scroll body saat mobile menu terbuka
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -37,18 +33,28 @@ const NavbarComponent = () => {
     }
   }, [mobileMenuOpen]);
 
+  // Auto-close mobile menu saat route berubah
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
   const navItems = [
     { title: 'Home', link: '/' },
-    { title: 'About', link: 'about' },
-    { title: 'Projects', link: 'projects' }
+    { title: 'About', link: '/about' },
+    { title: 'Projects', link: '/projects' }
   ];
+
+  // Helper function: cek apakah link active
+  const isActive = (path) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <>
-      {/* --- HEADER UTAMA (Z-INDEX 50) --- 
-          Penting: z-50 membuat header ini selalu berada DI ATAS mobile menu overlay (z-40).
-          Jadi tombol menu di dalamnya tetap bisa diklik.
-      */}
+      {/* HEADER UTAMA */}
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 w-full"
         style={{
@@ -60,51 +66,69 @@ const NavbarComponent = () => {
       >
         <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
           
-          {/* Logo (Minimalis) */}
-          <a href="/" className="relative z-50 flex items-center gap-2 group">
+          {/* Logo */}
+          <Link to="/" className="relative z-50 flex items-center gap-2 group">
             <img 
               src="/images/logo.svg" 
               alt="Logo" 
               className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" 
             />
             <span className="font-poetsen text-text-light text-xl tracking-wide">
-              Portfolio
+              Tohari
             </span>
-          </a>
+          </Link>
 
-          {/* Desktop Navigation (Hidden on Mobile) */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item, index) => (
-              <a 
+              <Link 
                 key={index}
-                href={item.link}
-                className="text-text-muted hover:text-text-light text-sm font-roboto font-medium transition-colors duration-300 relative group"
+                to={item.link}
+                className={`
+                  text-sm font-roboto font-medium transition-all duration-300 relative group
+                  ${isActive(item.link) 
+                    ? 'text-text-light' 
+                    : 'text-text-muted hover:text-text-light'
+                  }
+                `}
               >
                 {item.title}
-                {/* Garis bawah halus saat hover */}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent-glow transition-all duration-300 group-hover:w-full" />
-              </a>
+                
+                {/* Active indicator (garis bawah) */}
+                <span 
+                  className={`
+                    absolute -bottom-1 left-0 h-[2px] bg-accent-glow transition-all duration-300
+                    ${isActive(item.link) 
+                      ? 'w-full' 
+                      : 'w-0 group-hover:w-full'
+                    }
+                  `} 
+                />
+              </Link>
             ))}
             
-            {/* Tombol Kontak Simpel */}
-            <a 
-              href="#contact" 
-              className="ml-4 px-5 py-2 border border-border-highlight/30 text-text-light rounded-full text-sm font-medium hover:bg-surface/50 hover:border-accent-glow transition-all duration-300"
+            {/* Tombol Contact */}
+            <Link 
+              to="/contact" 
+              className={`
+                ml-4 px-5 py-2 border rounded-full text-sm font-medium transition-all duration-300
+                ${isActive('/contact')
+                  ? 'border-accent-glow bg-accent-glow/10 text-accent-glow'
+                  : 'border-border-highlight/30 text-text-light hover:bg-surface/50 hover:border-accent-glow'
+                }
+              `}
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
-          {/* --- TOMBOL MENU MOBILE (HAMBURGER / X) --- 
-              Karena berada di dalam Header z-50, dia akan di atas Overlay z-40.
-          */}
+          {/* Hamburger Button */}
           <button 
             className="md:hidden relative z-50 p-2 text-text-light focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
           >
             <div className="w-6 h-6 flex flex-col justify-center items-center gap-[5px]">
-              {/* Garis Atas */}
               <motion.span 
                 animate={{ 
                   rotate: mobileMenuOpen ? 45 : 0, 
@@ -112,7 +136,6 @@ const NavbarComponent = () => {
                 }}
                 className="w-6 h-[2px] bg-current block rounded-full origin-center transition-all duration-300"
               />
-              {/* Garis Tengah */}
               <motion.span 
                 animate={{ 
                   opacity: mobileMenuOpen ? 0 : 1,
@@ -120,7 +143,6 @@ const NavbarComponent = () => {
                 }}
                 className="w-6 h-[2px] bg-current block rounded-full transition-all duration-300"
               />
-              {/* Garis Bawah */}
               <motion.span 
                 animate={{ 
                   rotate: mobileMenuOpen ? -45 : 0, 
@@ -134,9 +156,7 @@ const NavbarComponent = () => {
         </div>
       </motion.header>
 
-      {/* --- MOBILE MENU OVERLAY (Z-INDEX 40) --- 
-          Overlay ini fullscreen tapi di bawah Header.
-      */}
+      {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
@@ -148,28 +168,45 @@ const NavbarComponent = () => {
           >
             <nav className="flex flex-col items-center gap-8">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={index}
-                  href={item.link}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + index * 0.1 }}
-                  className="text-3xl font-poetsen text-text-light hover:text-accent-glow transition-colors duration-300"
-                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item.title}
-                </motion.a>
+                  <Link
+                    to={item.link}
+                    className={`
+                      text-3xl font-poetsen transition-colors duration-300
+                      ${isActive(item.link) 
+                        ? 'text-accent-glow' 
+                        : 'text-text-light hover:text-accent-glow'
+                      }
+                    `}
+                  >
+                    {item.title}
+                  </Link>
+                </motion.div>
               ))}
-               <motion.a
-                  href="#contact"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="mt-4 px-8 py-3 border border-accent-glow text-accent-glow rounded-full text-lg font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Link
+                  to="/contact"
+                  className={`
+                    mt-4 px-8 py-3 border rounded-full text-lg font-medium transition-all duration-300
+                    ${isActive('/contact')
+                      ? 'border-accent-glow bg-accent-glow/20 text-accent-glow'
+                      : 'border-accent-glow text-accent-glow hover:bg-accent-glow/10'
+                    }
+                  `}
                 >
                   Get in Touch
-                </motion.a>
+                </Link>
+              </motion.div>
             </nav>
           </motion.div>
         )}
