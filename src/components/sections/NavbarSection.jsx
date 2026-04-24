@@ -69,12 +69,12 @@ const NavbarComponent = () => {
           {/* Logo */}
           <Link to="/" className="relative z-50 flex items-center gap-2 group">
             <img 
-              src="/images/logo.svg" 
+              src="/images/profile-avatar-8bit.jpeg" 
               alt="Logo" 
-              className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" 
+              className="w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110" 
             />
             <span className="font-poetsen text-text-light text-xl tracking-wide">
-              Tohari
+              Sito
             </span>
           </Link>
 

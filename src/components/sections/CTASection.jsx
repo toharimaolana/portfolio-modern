@@ -85,7 +85,7 @@ const CTASection = () => {
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="
-          relative w-full max-w-5xl
+          relative w-[1200px]
           rounded-[32px]
           px-6 py-10 sm:px-10 sm:py-14
           overflow-hidden
@@ -135,7 +135,7 @@ const CTASection = () => {
 
           <div className="mt-4 flex flex-col sm:flex-row items-center gap-3">
             <a
-              href="mailto:mohamad.tohari@example.com"
+              href="/contact"
               className="
                 inline-flex items-center justify-center
                 rounded-full bg-text-light px-6 sm:px-8 py-2.5 sm:py-3

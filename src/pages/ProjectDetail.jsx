@@ -84,7 +84,6 @@ const ProjectDetail = () => {
 
   return (
     <div className="bg-bg-base min-h-screen">
-
       {/* HERO SECTION */}
       <section className="relative pt-24 pb-12 px-6">
         <div className="max-w-[1000px] mx-auto">

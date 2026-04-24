@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiArrowUp } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiInstagram, FiMail, FiArrowUp } from 'react-icons/fi';
 
 // --- DATA ---
 const socialLinks = {
   github: 'https://github.com/toharimaolana',
   linkedin: 'https://www.linkedin.com/in/mohamad-tohari-maolana/',
-  twitter: 'https://twitter.com',
+  instagram: 'https://www.instagram.com/toharimaolana',
   email: 'mailto:sitohari01@gmail.com',
 };
 
@@ -120,7 +120,7 @@ const FooterSection = () => {
               {[
                 { icon: FiGithub, link: socialLinks.github, label: 'GitHub' },
                 { icon: FiLinkedin, link: socialLinks.linkedin, label: 'LinkedIn' },
-                { icon: FiTwitter, link: socialLinks.twitter, label: 'Twitter' },
+                { icon: FiInstagram, link: socialLinks.instagram, label: 'Instagram' },
                 { icon: FiMail, link: socialLinks.email, label: 'Email' },
               ].map((social, index) => (
                 <motion.a
