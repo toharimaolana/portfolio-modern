@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Calendar, User } from 'lucide-react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { projects } from '../data/projects';
+import { projectService } from '../services/projectService';
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -22,12 +22,15 @@ const ProjectDetail = () => {
   const imageY = useTransform(scrollYProgress, [0, 0.3], [0, -50]);
 
   useEffect(() => {
+    let active = true;
     const loadData = async () => {
       setLoading(true);
       setError(null);
       window.scrollTo(0, 0);
 
-      const foundProject = projects.find((p) => String(p.id) === id);
+      const foundProject = await projectService.getProjectById(id);
+
+      if (!active) return;
 
       if (!foundProject) {
         setProjectMetadata(null);
@@ -49,14 +52,24 @@ const ProjectDetail = () => {
         setError('Failed to load project details. Please try again later.');
       }
 
-      const currentIndex = projects.findIndex((p) => String(p.id) === id);
-      const nextIndex = (currentIndex + 1) % projects.length;
-      setNextProject(projects[nextIndex]);
+      const allProjects = await projectService.getProjects();
+      if (!active) return;
+
+      const currentIndex = allProjects.findIndex((p) => String(p.id) === String(id));
+      if (currentIndex !== -1 && allProjects.length > 1) {
+        const nextIndex = (currentIndex + 1) % allProjects.length;
+        setNextProject(allProjects[nextIndex]);
+      } else {
+        setNextProject(null);
+      }
 
       setLoading(false);
     };
 
     loadData();
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   if (loading) {

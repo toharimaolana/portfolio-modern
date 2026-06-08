@@ -10,11 +10,11 @@ const NavbarComponent = () => {
 
   // Efek blur & background muncul halus saat scroll
   const navBackground = useTransform(
-    scrollY, 
-    [0, 50], 
-    ["rgba(6, 0, 16, 0)", "rgba(6, 0, 16, 0.8)"] 
+    scrollY,
+    [0, 50],
+    ["rgba(6, 0, 16, 0)", "rgba(6, 0, 16, 0.8)"]
   );
-  
+
   const navBackdrop = useTransform(scrollY, [0, 50], ["blur(0px)", "blur(12px)"]);
   const navBorder = useTransform(scrollY, [0, 50], ["1px solid rgba(255,255,255,0)", "1px solid rgba(255,255,255,0.1)"]);
 
@@ -65,51 +65,51 @@ const NavbarComponent = () => {
         }}
       >
         <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
-          
+
           {/* Logo */}
           <Link to="/" className="relative z-50 flex items-center gap-2 group">
-            <img 
-              src="/images/profile-avatar-8bit.jpeg" 
-              alt="Logo" 
-              className="w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110" 
+            <img
+              src="/images/profile-avatar-8bit.jpeg"
+              alt="Logo"
+              className="w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
             />
             <span className="font-poetsen text-text-light text-xl tracking-wide">
-              Sito
+              Tohari
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item, index) => (
-              <Link 
+              <Link
                 key={index}
                 to={item.link}
                 className={`
                   text-sm font-roboto font-medium transition-all duration-300 relative group
-                  ${isActive(item.link) 
-                    ? 'text-text-light' 
+                  ${isActive(item.link)
+                    ? 'text-text-light'
                     : 'text-text-muted hover:text-text-light'
                   }
                 `}
               >
                 {item.title}
-                
+
                 {/* Active indicator (garis bawah) */}
-                <span 
+                <span
                   className={`
                     absolute -bottom-1 left-0 h-[2px] bg-accent-glow transition-all duration-300
-                    ${isActive(item.link) 
-                      ? 'w-full' 
+                    ${isActive(item.link)
+                      ? 'w-full'
                       : 'w-0 group-hover:w-full'
                     }
-                  `} 
+                  `}
                 />
               </Link>
             ))}
-            
+
             {/* Tombol Contact */}
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className={`
                 ml-4 px-5 py-2 border rounded-full text-sm font-medium transition-all duration-300
                 ${isActive('/contact')
@@ -123,30 +123,30 @@ const NavbarComponent = () => {
           </nav>
 
           {/* Hamburger Button */}
-          <button 
+          <button
             className="md:hidden relative z-50 p-2 text-text-light focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
           >
             <div className="w-6 h-6 flex flex-col justify-center items-center gap-[5px]">
-              <motion.span 
-                animate={{ 
-                  rotate: mobileMenuOpen ? 45 : 0, 
-                  y: mobileMenuOpen ? 7 : 0 
+              <motion.span
+                animate={{
+                  rotate: mobileMenuOpen ? 45 : 0,
+                  y: mobileMenuOpen ? 7 : 0
                 }}
                 className="w-6 h-[2px] bg-current block rounded-full origin-center transition-all duration-300"
               />
-              <motion.span 
-                animate={{ 
+              <motion.span
+                animate={{
                   opacity: mobileMenuOpen ? 0 : 1,
-                  x: mobileMenuOpen ? -10 : 0 
+                  x: mobileMenuOpen ? -10 : 0
                 }}
                 className="w-6 h-[2px] bg-current block rounded-full transition-all duration-300"
               />
-              <motion.span 
-                animate={{ 
-                  rotate: mobileMenuOpen ? -45 : 0, 
-                  y: mobileMenuOpen ? -7 : 0 
+              <motion.span
+                animate={{
+                  rotate: mobileMenuOpen ? -45 : 0,
+                  y: mobileMenuOpen ? -7 : 0
                 }}
                 className="w-6 h-[2px] bg-current block rounded-full origin-center transition-all duration-300"
               />
@@ -159,7 +159,7 @@ const NavbarComponent = () => {
       {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -178,8 +178,8 @@ const NavbarComponent = () => {
                     to={item.link}
                     className={`
                       text-3xl font-poetsen transition-colors duration-300
-                      ${isActive(item.link) 
-                        ? 'text-accent-glow' 
+                      ${isActive(item.link)
+                        ? 'text-accent-glow'
                         : 'text-text-light hover:text-accent-glow'
                       }
                     `}
@@ -188,7 +188,7 @@ const NavbarComponent = () => {
                   </Link>
                 </motion.div>
               ))}
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

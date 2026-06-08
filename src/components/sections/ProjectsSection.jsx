@@ -1,25 +1,42 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// PERBAIKAN JALUR IMPOR (RELATIF)
 import SectionHeader from '../ui/SectionHeader';
 import ProjectCard from '../ui/ProjectCard';
-import { projects } from '../../data/projects';
+import { projectService } from '../../services/projectService';
 
 const ProjectsSection = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  useEffect(() => {
+    let active = true;
+    const loadProjects = async () => {
+      setLoading(true);
+      const data = await projectService.getProjects();
+      if (active) {
+        setProjects(data);
+        setLoading(false);
+      }
+    };
+    loadProjects();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const categories = useMemo(() => {
     const allCategories = projects.map(project => project.category);
     return ['All', ...new Set(allCategories)];
-  }, []);
+  }, [projects]);
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === 'All') {
       return projects;
     }
     return projects.filter(project => project.category === selectedCategory);
-  }, [selectedCategory]);
+  }, [selectedCategory, projects]);
 
   return (
     <section className="relative w-full bg-bg-base overflow-hidden">
@@ -55,18 +72,33 @@ const ProjectsSection = () => {
           ))}
         </div>
 
-        <motion.div 
-          layout 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((n) => (
+              <div
+                key={n}
+                className="h-[400px] w-full rounded-3xl bg-white/5 animate-pulse border border-border-highlight/10 flex flex-col justify-end p-8 space-y-4"
+              >
+                <div className="h-6 w-24 bg-white/10 rounded-full" />
+                <div className="h-8 w-2/3 bg-white/10 rounded" />
+                <div className="h-4 w-full bg-white/5 rounded" />
+              </div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        ) : (
+          <motion.div 
+            layout 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
-        {filteredProjects.length === 0 && (
+        {!loading && filteredProjects.length === 0 && (
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -81,4 +113,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection;
+export default ProjectsSection;
