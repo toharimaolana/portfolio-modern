@@ -39,14 +39,15 @@ const ProjectsSection = () => {
   }, [selectedCategory, projects]);
 
   return (
-    <section className="relative w-full bg-bg-base overflow-hidden">
+    <section className="relative w-full bg-bg-base pt-28 sm:pt-32 lg:pt-40 overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6">
         
         <SectionHeader
-          subheading="My Portfolio"     
-          heading="Recent Works"
-          description="A curated selection of projects demonstrating my technical expertise in modern web development and user-centric UI/UX design."
-          align="center"
+          variant="projects"
+          number="01"
+          subheading="PORTFOLIO"
+          heading="Selected Projects"
+          description="A curated selection of projects demonstrating my technical expertise in modern web development."
         />
 
         <div className="flex flex-wrap justify-center items-center gap-3 mb-12 mt-8">

@@ -1,205 +1,183 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
+/**
+ * Editorial Typography System — SectionHeader
+ * Redesigned to give each section category its own visual personality
+ * inspired by Awwwards, UI8, and Behance.
+ * Supports: 'projects', 'credentials', 'cta', and 'default' variants.
+ */
 const SectionHeader = ({ 
-  subheading = "", 
-  heading = "",
-  description = "",
-  align = "" // "center", "left", "center" or "right"
+  variant = 'default',
+  subheading = '', 
+  heading = '',
+  description = '',
+  number = ''
 }) => {
-  
-  const alignmentClasses = {
-    center: "text-center items-center",
-    left: "text-left items-start",
-    right: "text-right items-end"
-  };
 
-  return (
-    <div className={`relative w-full flex flex-col ${alignmentClasses[align]} gap-6 py-12`}>
-      
-      {/* Subheading - Small but Eye-catching */}
-      <motion.div
-        className="relative inline-flex items-center gap-3"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* Decorative Line - Left */}
-        <motion.div
-          className="h-px w-8 bg-gradient-to-r from-transparent to-accent-glow"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        />
-        
-        {/* Subheading Badge with Animated Gradient */}
-        <div className="relative group">
-          {/* Animated Gradient Background */}
-          <motion.div
-            className="absolute inset-0 rounded-full blur-xl opacity-60"
-            animate={{
-              background: [
-                'linear-gradient(90deg, rgba(115, 56, 160, 0.4) 0%, rgba(146, 77, 191, 0.4) 50%, rgba(199, 125, 255, 0.4) 100%)',
-                'linear-gradient(90deg, rgba(199, 125, 255, 0.4) 0%, rgba(146, 77, 191, 0.4) 50%, rgba(115, 56, 160, 0.4) 100%)',
-                'linear-gradient(90deg, rgba(115, 56, 160, 0.4) 0%, rgba(146, 77, 191, 0.4) 50%, rgba(199, 125, 255, 0.4) 100%)',
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
+  // Variant: SELECTED PROJECTS (Brutalist Awwwards Split Layout)
+  if (variant === 'projects') {
+    return (
+      <div className="relative w-full flex flex-col md:flex-row md:items-end md:justify-between border-b border-border-highlight/20 pb-8 mb-12">
+        <div className="flex flex-col items-start max-w-xl">
+          {/* Section Number & Category */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 font-mono text-[0.7rem] sm:text-xs tracking-[0.2em] text-accent-glow uppercase"
+          >
+            <span>{number || '// 01'}</span>
+            <span className="h-px w-8 bg-accent-glow/40" />
+            <span>{subheading || 'PORTFOLIO'}</span>
+          </motion.div>
           
-          {/* Badge Container */}
-          <div className="relative px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-accent-glow/20 border border-accent-glow/30 backdrop-blur-xl overflow-hidden">
-            {/* Moving Shine Effect */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-glow/20 to-transparent"
-              animate={{
-                x: ['-200%', '200%'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-            
-            {/* Text */}
-            <span className="relative z-10 text-sm font-roboto font-bold tracking-widest uppercase text-text-light">
-              {subheading}
-            </span>
-          </div>
+          {/* Main Title - Massive, Tight tracking */}
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-poetsen text-4xl sm:text-5xl lg:text-6xl font-black tracking-[-0.05em] uppercase text-text-light mt-3 leading-none"
+          >
+            {heading || 'SELECTED PROJECTS'}
+          </motion.h2>
         </div>
 
-        {/* Decorative Line - Right */}
-        <motion.div
-          className="h-px w-8 bg-gradient-to-l from-transparent to-accent-glow"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        />
-      </motion.div>
+        {/* Supporting description - Right aligned on desktop */}
+        {description && (
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="font-roboto text-sm text-text-muted max-w-sm mt-4 md:mt-0 md:text-right leading-relaxed"
+          >
+            {description}
+          </motion.p>
+        )}
+      </div>
+    );
+  }
 
-      {/* Heading - Large and Bold with Animated Gradient */}
-      <motion.h2
-        className="relative font-poetsen text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* Multiple Glow Layers */}
-        <span className="absolute inset-0 blur-3xl opacity-40">
-          <motion.span
-            className="bg-clip-text text-transparent"
-            animate={{
-              backgroundImage: [
-                'linear-gradient(90deg, #7338A0 0%, #924DBF 50%, #C77DFF 100%)',
-                'linear-gradient(90deg, #C77DFF 0%, #924DBF 50%, #7338A0 100%)',
-                'linear-gradient(90deg, #7338A0 0%, #924DBF 50%, #C77DFF 100%)',
-              ],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+  // Variant: CREDENTIALS & PROOF (Newspaper Editorial Constellation Layout)
+  if (variant === 'credentials') {
+    return (
+      <div className="relative w-full flex flex-col items-center text-center pb-10 mb-8">
+        {/* Background Giant Watermark Number */}
+        {number && (
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-12 select-none pointer-events-none z-0">
+            <span className="font-poetsen text-[8rem] sm:text-[10rem] font-black text-text-light/[0.02] leading-none tracking-tighter">
+              {number}
+            </span>
+          </div>
+        )}
+
+        <div className="relative z-10 flex flex-col items-center">
+          {/* Italicized/Stretched Tag */}
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="font-mono text-[0.7rem] sm:text-[0.75rem] font-bold tracking-[0.25em] uppercase text-secondary mb-3"
+          >
+            {subheading || 'CREDENTIALS & PROOF'}
+          </motion.span>
+
+          {/* Title - Clean, Bold, Underlined minimally */}
+          <motion.h2 
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-poetsen text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] uppercase text-text-light leading-tight"
           >
             {heading}
-          </motion.span>
-        </span>
-        
-        <span className="absolute inset-0 blur-xl opacity-50">
-          <motion.span
-            className="bg-clip-text text-transparent"
-            animate={{
-              backgroundImage: [
-                'linear-gradient(90deg, #C77DFF 0%, #924DBF 50%, #7338A0 100%)',
-                'linear-gradient(90deg, #7338A0 0%, #C77DFF 50%, #924DBF 100%)',
-                'linear-gradient(90deg, #C77DFF 0%, #924DBF 50%, #7338A0 100%)',
-              ],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "linear",
-              delay: 0.5,
-            }}
-          >
-            {heading}
-          </motion.span>
-        </span>
-        
-        {/* Main Text with Animated Gradient */}
-        <motion.span
-          className="relative bg-clip-text text-transparent"
-          animate={{
-            backgroundImage: [
-              'linear-gradient(90deg, #EDE9FE 0%, #C77DFF 50%, #EDE9FE 100%)',
-              'linear-gradient(90deg, #C77DFF 0%, #EDE9FE 50%, #C77DFF 100%)',
-              'linear-gradient(90deg, #EDE9FE 0%, #C77DFF 50%, #EDE9FE 100%)',
-            ],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+          </motion.h2>
+
+          {/* Description as a focused intro paragraph */}
+          {description && (
+            <motion.p 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="font-roboto text-sm sm:text-base text-text-muted max-w-xl mt-4 leading-relaxed border-t border-border-highlight/10 pt-4"
+            >
+              {description}
+            </motion.p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Variant: CTA / CONTACT (Full-width Awwwards Immersive Layout)
+  if (variant === 'cta') {
+    return (
+      <div className="relative w-full flex flex-col items-center text-center py-6 mb-6">
+        {/* Subtitle */}
+        <motion.span 
+          initial={{ opacity: 0, tracking: '0.1em' }}
+          whileInView={{ opacity: 1, tracking: '0.3em' }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[0.7rem] sm:text-xs tracking-[0.3em] uppercase text-accent-glow/95 mb-6"
         >
-          {heading}
+          {subheading || 'GET IN TOUCH'}
         </motion.span>
 
-        {/* Decorative Underline with Moving Gradient */}
-        <motion.div
-          className="absolute -bottom-2 left-0 right-0 mx-auto h-1.5 rounded-full overflow-hidden"
-          style={{ width: align === 'center' ? '60%' : '80%' }}
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.4 }}
-        >
-          <motion.div
-            className="h-full w-full"
-            animate={{
-              background: [
-                'linear-gradient(90deg, transparent 0%, #C77DFF 50%, transparent 100%)',
-                'linear-gradient(90deg, transparent 0%, #924DBF 50%, transparent 100%)',
-                'linear-gradient(90deg, transparent 0%, #7338A0 50%, transparent 100%)',
-                'linear-gradient(90deg, transparent 0%, #C77DFF 50%, transparent 100%)',
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        </motion.div>
-      </motion.h2>
-
-      {/* Description - Optional */}
-      {description && (
-        <motion.p
-          className="font-roboto text-text-muted text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
+        {/* Large screen-wide typographic statement */}
+        <motion.h2 
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="font-poetsen text-4xl sm:text-6xl lg:text-7xl font-black tracking-[-0.05em] uppercase text-text-light leading-[0.95] max-w-4xl"
         >
+          {heading}
+        </motion.h2>
+
+        {/* Tiny description */}
+        {description && (
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-roboto text-sm sm:text-base text-text-light/80 max-w-lg mt-6 leading-relaxed"
+          >
+            {description}
+          </motion.p>
+        )}
+      </div>
+    );
+  }
+
+  // Variant: DEFAULT
+  return (
+    <div className="relative w-full flex flex-col items-center text-center py-6">
+      {subheading && (
+        <span className="font-mono text-[0.65rem] sm:text-[0.7rem] tracking-[0.2em] uppercase text-text-muted mb-2">
+          {subheading}
+        </span>
+      )}
+      {heading && (
+        <h2 className="font-poetsen text-3xl sm:text-4xl font-extrabold tracking-tighter uppercase text-text-light">
+          {heading}
+        </h2>
+      )}
+      {description && (
+        <p className="font-roboto text-xs sm:text-sm text-text-muted max-w-md mt-2 leading-relaxed">
           {description}
-        </motion.p>
+        </p>
       )}
     </div>
   );
 };
 
 export default SectionHeader;
-
-
-
-

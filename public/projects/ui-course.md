@@ -3,7 +3,7 @@
 ---
 
 # Project: Course Mobile App Design
-Oleh: **Mohaamad Tohari Maolana**
+Oleh: **Mohamad Tohari Maolana**
 
 ---
 

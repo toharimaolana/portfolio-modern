@@ -6,11 +6,12 @@ import SectionHeader from '@/components/ui/SectionHeader';
 
 const awards = [
   'Top 2 – National UI/UX Design Competition',
-  'Youngest IT Expert',
   'IDCamp 2024 Graduate – React Developer',
-  'Certified Competence- Computer Programming',
+  'IDCamp 2025 Graduate – AI Engineer',
+  'Certified Competence - Computer Programming',
   'AWS Backend Academy Graduate – 2025',
-  'Head of Informatics Study Club, Universitas Pamulang',
+  'Guest Speaker',
+  'Chairman of Informatics Study Club (ISC) Universitas Pamulang',
 ];
 
 const containerVariants = {
@@ -31,7 +32,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { 
+    transition: {
       duration: 0.4,
       ease: [0.25, 0.46, 0.45, 0.94]
     },
@@ -43,10 +44,11 @@ const RecognitionSection = () => {
     <section className="relative bg-bg-base py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          subheading="Recognition & Awards"
-          heading="Highlights of My Journey"
+          variant="credentials"
+          number="04"
+          subheading="RECOGNITION & AWARDS"
+          heading="Growth & Recognition"
           description="A snapshot of achievements and milestones that shaped my growth as a developer and designer."
-          align="center"
         />
 
         <motion.div
@@ -65,7 +67,7 @@ const RecognitionSection = () => {
             <motion.div
               key={idx}
               variants={itemVariants}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 transition: { duration: 0.2 }
               }}
@@ -87,13 +89,13 @@ const RecognitionSection = () => {
                 will-change-transform
               "
             >
-              <span 
+              <span
                 className="
                   h-1.5 w-1.5 sm:h-2 sm:w-2 
                   rounded-full bg-accent-glow 
                   shadow-[0_0_12px_rgba(199,125,255,0.7)] sm:shadow-[0_0_18px_rgba(199,125,255,0.9)]
                   flex-shrink-0
-                " 
+                "
               />
               <span className="whitespace-nowrap leading-tight">
                 {item}

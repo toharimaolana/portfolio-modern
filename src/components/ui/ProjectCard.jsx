@@ -42,7 +42,7 @@ const ProjectCard = ({ project }) => {
             </span>
           </motion.div>
 
-          <h3 className="font-poetsen text-2xl sm:text-3xl text-text-light leading-tight mb-2 drop-shadow-md group-hover:text-white transition-colors duration-300">
+          <h3 className="font-poetsen text-2xl sm:text-3xl font-black tracking-tighter text-text-light leading-[1.1] mb-2 drop-shadow-md group-hover:text-white transition-colors duration-300">
             {project.title}
           </h3>
 

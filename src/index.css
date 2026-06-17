@@ -1,8 +1,14 @@
-/* 1. Impor font Google Anda di paling atas */
-@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&family=Roboto:wght@400;500;700&display=swap');
-
-/* 2. Impor dependensi Tailwind */
+/* 1. Tailwind base */
 @import "tailwindcss";
+
+/* 2. Scrollbar utility for badge horizontal scroll */
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 @theme {
   --color-bg-base: #060010;
@@ -23,6 +29,7 @@
 
   /* === FONT ANDA === */
   /* 'fontFamily' menjadi '--font' */
-  --font-poetsen: "Poetsen One", sans-serif;
-  --font-roboto: "Roboto", sans-serif;
+  --font-poetsen: "Sora", sans-serif;
+  --font-roboto: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }

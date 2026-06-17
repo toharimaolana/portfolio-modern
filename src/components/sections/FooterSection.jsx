@@ -41,7 +41,7 @@ const FooterSection = () => {
     } catch {
       // ignore
     }
-  }, [likes, hasLiked]); // [web:112][web:118]
+  }, [likes, hasLiked]);
 
   // scroll button visibility
   useEffect(() => {
@@ -61,185 +61,140 @@ const FooterSection = () => {
   };
 
   const handleLike = () => {
-    setLikes(prev => prev + 1);
-    setHasLiked(true);
-  };
-
-  // motion variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: 'easeOut' } },
-  };
-
-  const socialIconVariants = {
-    hover: {
-      y: -5,
-      scale: 1.1,
-      transition: { type: 'spring', stiffness: 400, damping: 12 },
-    },
-    tap: { scale: 0.95 },
+    if (!hasLiked) {
+      setLikes(prev => prev + 1);
+      setHasLiked(true);
+    }
   };
 
   return (
-    <footer className="relative mt-20 overflow-hidden bg-bg-base pt-12 pb-10">
-      <motion.div
-        className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-8 px-6"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {/* top row */}
-        <div className="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:items-start md:text-left">
-          {/* left: CTA */}
-          <motion.div variants={itemVariants} className="max-w-md space-y-3">
-            <h3 className="bg-gradient-to-r from-text-light via-accent-glow to-text-light bg-clip-text text-3xl md:text-4xl font-poetsen text-transparent">
+    <footer className="relative w-full bg-bg-base pt-20 pb-12 overflow-hidden border-t border-border-highlight/10">
+      
+      {/* Background Glow Accent */}
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 h-[350px] w-[600px] rounded-full bg-accent-glow/5 blur-[100px] z-0" />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6">
+        
+        {/* Asymmetric Split Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 items-start">
+          
+          {/* LEFT COLUMN: Let's Connect CTA (Col Span 7) */}
+          <div className="md:col-span-7 space-y-4">
+            <span className="font-mono text-[0.65rem] sm:text-xs tracking-[0.25em] text-accent-glow uppercase block">
+              // COLLABORATION INQUIRIES
+            </span>
+            <h3 className="font-poetsen text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.05em] uppercase text-text-light leading-none">
               Let&apos;s Connect
             </h3>
-            <p className="font-roboto text-base leading-relaxed text-text-muted">
-              Interested in collaborating on a future project or just want to say hi?
-              Feel free to reach out — always open to meaningful conversations.
+            <p className="font-roboto text-sm sm:text-base text-text-muted leading-relaxed max-w-md">
+              Interested in collaborating on a future project or just want to say hi? 
+              Feel free to reach out — always open to meaningful conversations and creative developer roles.
             </p>
-          </motion.div>
+          </div>
 
-          {/* right: socials + like */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col items-center gap-5 md:items-end"
-          >
-            {/* social icons */}
-            <div className="flex gap-3">
-              {[
-                { icon: FiGithub, link: socialLinks.github, label: 'GitHub' },
-                { icon: FiLinkedin, link: socialLinks.linkedin, label: 'LinkedIn' },
-                { icon: FiInstagram, link: socialLinks.instagram, label: 'Instagram' },
-                { icon: FiMail, link: socialLinks.email, label: 'Email' },
-              ].map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    group relative overflow-hidden rounded-full border border-border-highlight/20
-                    bg-bg-surface/60 p-3 text-text-muted backdrop-blur-xl
-                    transition-colors duration-300
-                  "
-                  variants={socialIconVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                  title={social.label}
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary to-accent-glow opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  />
-                  <span className="relative z-10">
-                    <social.icon size={20} />
-                  </span>
-                </motion.a>
-              ))}
+          {/* RIGHT COLUMN: Minimalism Monospace Socials & Dashboard Likes (Col Span 5) */}
+          <div className="md:col-span-5 flex flex-col items-start md:items-end space-y-8">
+            
+            {/* Social Text links in JetBrains Mono */}
+            <div className="flex flex-col md:items-end gap-3.5">
+              <span className="font-mono text-[0.65rem] tracking-[0.2em] text-text-muted uppercase">
+                // CONNECT ABROAD
+              </span>
+              <div className="flex flex-wrap md:justify-end gap-x-5 gap-y-2">
+                {[
+                  { label: 'GITHUB', link: socialLinks.github },
+                  { label: 'LINKEDIN', link: socialLinks.linkedin },
+                  { label: 'INSTAGRAM', link: socialLinks.instagram },
+                  { label: 'EMAIL', link: socialLinks.email },
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs tracking-[0.15em] text-text-muted hover:text-accent-glow transition-colors duration-300 relative group"
+                  >
+                    {social.label}
+                    <span className="absolute left-0 bottom-[-2px] w-0 h-px bg-accent-glow transition-all duration-300 group-hover:w-full" />
+                  </a>
+                ))}
+              </div>
             </div>
 
-            {/* like button */}
-            <motion.button
-              type="button"
-              onClick={handleLike}
-              disabled={hasLiked}
-              className="
-                inline-flex items-center gap-2 rounded-full border border-border-highlight/40
-                bg-bg-surface/30 px-4 py-2 text-xs font-roboto font-medium uppercase
-                tracking-[0.18em] text-text-light/80 backdrop-blur-xl
-                shadow-[0_18px_60px_rgba(0,0,0,0.45)]
-                disabled:cursor-not-allowed disabled:border-border-highlight/20
-              "
-              whileTap={{ scale: 0.9 }}
-            >
-              <motion.span
-                animate={
-                  hasLiked
-                    ? {
-                        scale: [1, 1.4, 1],
-                        rotate: [0, -10, 10, 0],
-                      }
-                    : {}
-                }
-                transition={{ duration: 0.4 }}
-                className={`flex h-6 w-6 items-center justify-center rounded-full ${
-                  hasLiked
-                    ? 'bg-accent-glow text-bg-base'
-                    : 'bg-bg-surface text-text-light'
-                }`}
+            {/* Dashboard-Style Like Pill */}
+            <div className="flex flex-col md:items-end gap-2.5 w-full sm:w-auto">
+              <span className="font-mono text-[0.65rem] tracking-[0.2em] text-text-muted uppercase">
+                // SYSTEM FEEDBACK
+              </span>
+              <button
+                type="button"
+                onClick={handleLike}
+                disabled={hasLiked}
+                className="
+                  flex items-center justify-between gap-4 border border-border-highlight/20 
+                  bg-bg-surface/10 hover:bg-bg-surface/20 active:scale-98
+                  rounded-xl px-5 py-3 text-xs font-mono tracking-widest text-text-light/85 
+                  transition-all duration-300 shadow-2xl w-full sm:w-auto
+                  disabled:cursor-not-allowed disabled:opacity-80 disabled:border-accent-glow/30
+                "
               >
-                ❤️
-              </motion.span>
-              <span>{hasLiked ? 'Thanks for the love' : 'Like this portfolio'}</span>
-              <span className="text-text-muted/70">• {likes}</span>
-            </motion.button>
-          </motion.div>
+                <div className="flex items-center gap-2">
+                  <span className={`inline-flex items-center justify-center h-5 w-5 rounded-full ${hasLiked ? 'animate-bounce' : ''}`}>
+                    {hasLiked ? '❤️' : '🤍'}
+                  </span>
+                  <span>{hasLiked ? 'VOTE PERSISTED' : 'SUPPORT SYSTEM'}</span>
+                </div>
+                <span className="h-4 w-px bg-border-highlight/30" />
+                <span className="text-accent-glow font-bold">{likes} LIKES</span>
+              </button>
+            </div>
+
+          </div>
+
         </div>
 
-        {/* divider */}
-        <motion.div
-          className="my-8 h-px bg-gradient-to-r from-transparent via-border-highlight/50 to-transparent"
-          initial={{ scaleX: 0, opacity: 0 }}
-          whileInView={{ scaleX: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.4 }}
-        />
+        {/* Clean full-width horizontal divider line */}
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-border-highlight/20 to-transparent" />
 
-        {/* bottom row */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col items-center justify-center gap-2 text-center md:flex-row"
-        >
-          <p className="font-roboto text-sm text-text-muted">
-            © {new Date().getFullYear()} Mohamad Tohari Maolana. All rights reserved.
-          </p>
-          <span className="hidden text-text-muted/30 md:inline mx-2">•</span>
-          <p className="flex items-center gap-1.5 font-roboto text-sm text-text-muted">
-            Built with
-            <motion.span
-              animate={{
-                scale: [1, 1.3, 1],
-                color: ['#A1A1AA', '#C77DFF', '#A1A1AA'],
-              }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              ❤️
-            </motion.span>
-            and React
-          </p>
-        </motion.div>
-      </motion.div>
+        {/* GIGANTIC BRAND SIGNATURE WATERMARK */}
+        <div className="w-full text-center overflow-hidden py-10 pointer-events-none select-none">
+          <h2 className="font-poetsen text-[7.5vw] font-black tracking-[-0.05em] leading-none uppercase text-text-light/[0.02] bg-gradient-to-b from-text-light/[0.03] to-transparent bg-clip-text text-transparent whitespace-nowrap">
+            MOHAMAD TOHARI MAOLANA
+          </h2>
+        </div>
 
-      {/* scroll to top */}
+        {/* BOTTOM METADATA ROW */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left font-mono text-[0.65rem] tracking-wider text-text-muted/60 uppercase">
+          <div>
+            © {new Date().getFullYear()} MOHAMAD TOHARI MAOLANA. ALL RIGHTS RESERVED.
+          </div>
+          <div className="flex items-center gap-2">
+            <span>BUILT WITH REACT & TAILWIND</span>
+            <span className="text-accent-glow">•</span>
+            <span>JAKARTA, ID</span>
+          </div>
+        </div>
+
+      </div>
+
+      {/* FIXED SCROLL TO TOP ACCENT */}
       <AnimatePresence>
         {showScroll && (
           <motion.button
             onClick={scrollToTop}
             className="
-              fixed bottom-8 right-8 z-50 rounded-full border border-accent-glow/30
-              bg-bg-surface/80 p-3.5 text-accent-glow shadow-[0_0_20px_rgba(199,125,255,0.3)]
-              backdrop-blur-md group
+              fixed bottom-8 right-8 z-50 rounded-full border border-border-highlight/30
+              bg-bg-surface/80 p-3.5 text-accent-glow shadow-[0_4px_24px_rgba(0,0,0,0.5)]
+              backdrop-blur-md group hover:border-accent-glow/50
             "
-            initial={{ y: 50, opacity: 0, scale: 0.5 }}
+            initial={{ y: 50, opacity: 0, scale: 0.8 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 50, opacity: 0, scale: 0.5 }}
-            whileHover={{ scale: 1.1, y: -5 }}
-            whileTap={{ scale: 0.9 }}
+            exit={{ y: 50, opacity: 0, scale: 0.8 }}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.95 }}
+            title="Back to top"
           >
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-black/80 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              Back to top
-            </span>
-            <FiArrowUp size={20} className="group-hover:animate-bounce" />
+            <FiArrowUp size={18} className="transition-transform duration-300 group-hover:-translate-y-1" />
           </motion.button>
         )}
       </AnimatePresence>

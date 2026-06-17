@@ -18,7 +18,7 @@ export const projects = [
     },
     {
         id: "3",
-        title: "Website Pengduan Masyarakat",
+        title: "Website Pengaduan Masyarakat",
         category: "Web Development",
         year: "2025",
         client: "Personal Project",
@@ -43,7 +43,7 @@ export const projects = [
         }
     },
     {
-        id: "3",
+        id: "5",
         title: "UI Design Course",
         category: "UI Design",
         year: "2025",

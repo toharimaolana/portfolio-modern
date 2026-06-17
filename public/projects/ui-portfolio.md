@@ -3,7 +3,7 @@ title: Desain UI Portofolio Web
 ---
 
 # Project: Desain UI Portofolio Web (Personal)
-Oleh: **Mohaamad Tohari Maolana**
+Oleh: **Mohamad Tohari Maolana**
 
 ---
 

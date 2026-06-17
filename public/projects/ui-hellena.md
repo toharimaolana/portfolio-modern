@@ -3,7 +3,7 @@ title: Global Healthcare Solutions
 ---
 
 # Project: Global Healthcare Solutions (Landing Page)
-Oleh: **Mohaamad Tohari Maolana**
+Oleh: **Mohamad Tohari Maolana**
 
 ---
 

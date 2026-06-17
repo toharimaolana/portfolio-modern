@@ -3,7 +3,7 @@ title: Linktree Clone
 ---
 
 # Project: Linktree Clone (React)
-Oleh: **Mohaamad Tohari Maolana**
+Oleh: **Mohamad Tohari Maolana**
 
 ---
 

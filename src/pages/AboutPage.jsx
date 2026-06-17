@@ -1,11 +1,9 @@
 import React from 'react';
 import AboutHero from '@/components/sections/AboutHero.jsx';
-import StatsSection from '@/components/sections/StatsSection';
+import CredentialsSection from '@/components/sections/CredentialsSection';
 import LogoLoop from '@/components/ui/LogoLoop';
 import TimelineSection from '@/components/sections/TimelineSection';
 import CTASection from '@/components/sections/CTASection';
-import RecognitionSection from '@/components/sections/RecognitionSection';
-
 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
@@ -33,42 +31,53 @@ const myJourneyItems = [
     year: "2020 - 2023",
     title: "Vocational Foundation in Software Engineering",
     description: "Started the coding journey at SMK YP IPPI Petojo, specializing in Software Engineering (RPL). Built a strong foundation in web development and programming fundamentals.",
-    tags: ["High School", "RPL", "Coding Roots"],
+    tags: ["SMK RPL", "Foundation", "First Code"],
   }
 ];
+
+const Divider = () => (
+  <div className="relative w-full max-w-[1200px] mx-auto px-6">
+    <div className="h-px w-full bg-gradient-to-r from-transparent via-border-highlight/20 to-transparent" />
+  </div>
+);
 
 const AboutPage = () => {
   return (
     <main className="bg-bg-base text-text-light">
-    <AboutHero />
-    {/* Logo strip: clean & compact */}
-    <section className="relative bg-bg-base">
-      <div className="relative h-[200px] overflow-hidden">
-        <LogoLoop
-          logos={techLogos}
-          speed={80}
-          direction="up"
-          logoHeight={48}
-          gap={40}
-          fadeOut
-        />
-      </div>
-    </section>
-    <StatsSection />
+      <AboutHero />
+      
+      {/* Logo strip: clean & compact */}
+      <section className="relative bg-bg-base">
+        <div className="relative h-[200px] overflow-hidden">
+          <LogoLoop
+            logos={techLogos}
+            speed={80}
+            direction="up"
+            logoHeight={48}
+            gap={40}
+            fadeOut
+          />
+        </div>
+      </section>
 
+      <Divider />
 
-    <TimelineSection
-    items={myJourneyItems}
-    sectionProps={{
-      subheading: "Our Story",
-      heading: "Growth Timeline",
-      description: "From humble beginnings to industry leadership - see how we've evolved."
-    }}
-    />
-    
-    <RecognitionSection />
+      <CredentialsSection />
 
-    <CTASection />
+      <Divider />
+
+      <TimelineSection
+        items={myJourneyItems}
+        sectionProps={{
+          subheading: "Our Story",
+          heading: "Growth Timeline",
+          description: "From humble beginnings to industry leadership - see how we've evolved."
+        }}
+      />
+      
+      <Divider />
+
+      <CTASection />
     </main>
   );
 };

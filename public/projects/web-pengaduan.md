@@ -1,51 +1,51 @@
 ---
-title: Sistem Manajemen Modul & Proyek
+title: Sistem Manajemen Modul & Proyek Mahasiswa
 ---
 
-# Project: Sistem Manajemen Modul & Proyek Mahasiswa
-Oleh: **Mohaamad Tohari Maolana**
+# Sistem Manajemen Modul & Proyek Mahasiswa
+Oleh: **Mohamad Tohari Maolana**
 
 ---
 
-## Tentang Proyek Ini
+## The Problem
 
-Kami menghadirkan Sistem Manajemen Modul & Proyek Mahasiswa, sebuah solusi berbasis web yang memungkinkan dosen untuk mengunggah modul pembelajaran dan template proyek, serta mahasiswa untuk mengakses, mengunduh, dan mengunggah proyek mereka. Sistem ini juga menyediakan fitur review proyek, sehingga dosen dapat memberikan umpan balik langsung kepada mahasiswa.
+In academic environments, the workflow between lecturers and students for distributing learning modules and collecting project submissions is often fragmented — scattered across WhatsApp groups, Google Drive links, and email attachments. This creates **version confusion**, **lost submissions**, and **zero visibility** on project review status. Lecturers needed a centralized platform to publish materials and review student work efficiently.
 
-## Peran Saya (Front-End Developer)
+## My Role
 
-Dalam proyek kolaboratif ini, saya berfokus penuh pada **Front-End Development**. Tugas utama saya adalah **menerjemahkan (slicing) desain UI/UX** yang kompleks dari Figma menjadi kode HTML, CSS (Bootstrap), dan JavaScript yang fungsional.
+**Front-End Developer** — Responsible for translating complex UI/UX designs from Figma into production-ready, pixel-perfect HTML/CSS/JS code. I owned the entire visual layer of the application across all user roles (student, lecturer, admin).
 
-Saya bertanggung jawab untuk memastikan semua komponen—mulai dari dashboard, formulir unggah, hingga modal review—terlihat *pixel-perfect* dan bekerja secara responsif di semua perangkat.
+## The Process
 
-## Fitur Utama (yang Saya Kerjakan Tampilannya)
+1. **Design Handoff Analysis** — Received Figma designs covering 15+ unique screens. Documented component patterns, spacing tokens, and responsive breakpoints before writing any code.
+2. **Component Architecture** — Established a reusable component library using Bootstrap 5 utilities and custom CSS to maintain visual consistency across dashboards, modals, forms, and tables.
+3. **Responsive Implementation** — Ensured every screen (dashboard, upload forms, review modals, ranking tables) rendered correctly from 320px mobile to 1440px desktop.
+4. **Interactive Elements** — Built dynamic UI interactions with vanilla JavaScript: modal windows for project reviews, drag-and-drop file upload zones, and real-time form validation.
+5. **Integration Support** — Coordinated with backend developer to ensure frontend templates mapped correctly to Laravel Blade template variables and API response structures.
 
-* ✅ **Dashboard Interaktif:** Slicing tampilan dashboard yang intuitif untuk dosen dan mahasiswa.
-* ✅ **Manajemen Modul:** Membuat antarmuka (UI) untuk dosen mengunggah dan mengelola modul.
-* ✅ **Pengelolaan Proyek:** Mengembangkan tampilan bagi mahasiswa untuk mengunggah hasil proyek.
-* ✅ **Review & Feedback:** Merancang *modal* atau halaman di mana dosen dapat menilai dan memberi catatan revisi.
-* ✅ **Sistem Peringkat:** Mengimplementasikan UI untuk menampilkan peringkat proyek terbaik.
-* ✅ **Autentikasi:** Slicing halaman Login & Registrasi.
+## Key Screens I Built
 
-## Teknologi & Lingkungan Pengembangan
+- **Lecturer Dashboard** — Summary cards, module list with CRUD actions, student submission tracker with status indicators (pending/reviewed/revised).
+- **Student Portal** — Module download interface, project upload form with file type validation and progress indicator, review history timeline.
+- **Review System** — Modal-based review interface where lecturers score submissions, leave text feedback, and request revisions.
+- **Ranking Board** — Sortable table displaying top student projects by score, with badge indicators for top 3 positions.
+- **Auth Pages** — Login and registration forms with inline validation, role selection, and university branding.
 
-Teknologi yang saya gunakan untuk *slicing* di proyek ini:
+## Technical Stack
 
-<p>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/HTML5">
-    <img src="https://img.shields.io/badge/HTML5-Struktur-E34F26?style=for-the-badge&logo=html5" alt="HTML5">
-  </a>
-  <a href="https://getbootstrap.com/">
-    <img src="https://img.shields.io/badge/Bootstrap-Styling-7952B3?style=for-the-badge&logo=bootstrap" alt="Bootstrap">
-  </a>
-  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
-    <img src="https://img.shields.io/badge/JavaScript-Interaktivitas-F7DF1E?style=for-the-badge&logo=javascript" alt="JavaScript">
-  </a>
-  <a href="https://www.figma.com/">
-    <img src="https://img.shields.io/badge/Figma-Desain-F24E1E?style=for-the-badge&logo=figma" alt="Figma">
-  </a>
-</p>
+| Layer | Technology |
+|:------|:-----------|
+| Markup | HTML5 (semantic elements) |
+| Styling | Bootstrap 5 + Custom CSS |
+| Interactions | Vanilla JavaScript (ES6+) |
+| Design Source | Figma |
+| Integration | Laravel Blade Templates |
+| Version Control | Git |
 
----
-## Mockup / Tampilan
+## Impact & Learnings
 
-![[Image Placeholder: Tampilan Dashboard Sistem Manajemen]](https://placeholder.com/800x600?text=Sistem+Manajemen+Dashboard)
+- Delivered **15+ screens** from Figma to production-ready code in a 3-week sprint alongside coursework.
+- Developed a systematic **Figma-to-code workflow** that reduced my slicing time by ~40% from the first screen to the last.
+- Learned the discipline of working within a **design system** — maintaining consistent spacing, typography, and color usage across an entire multi-page application.
+- Strengthened **cross-functional collaboration** skills by coordinating daily with the backend developer to align template variables with API data shapes.
+- This project was the catalyst that drove me to specialize in **frontend development** and pursue React as my primary framework.

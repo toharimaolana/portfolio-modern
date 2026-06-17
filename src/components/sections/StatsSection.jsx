@@ -94,29 +94,29 @@ const StatsSection = () => {
     {
       number: 3,
       suffix: '+',
-      title: 'Years Experience',
-      description: 'Building digital products',
+      title: 'Years Learning',
+      description: 'Continuously building & growing in web development',
       color: 'text-accent-glow',
     },
     {
-      number: 25,
+      number: 20,
       suffix: '+',
-      title: 'Projects Completed',
-      description: 'Delivered with excellence',
+      title: 'Projects Built',
+      description: 'Personal, academic & freelance projects shipped',
       color: 'text-secondary',
     },
     {
-      number: 15,
-      suffix: '+',
-      title: 'Happy Clients',
-      description: 'Across various industries',
+      number: 1,
+      suffix: 'x',
+      title: 'National Winner',
+      description: 'UI/UX Design Competition',
       color: 'text-primary',
     },
     {
-      number: 100,
-      suffix: '%',
-      title: 'Clean Code',
-      description: 'Maintainable & scalable',
+      number: 200,
+      suffix: '+',
+      title: 'Community Members',
+      description: 'Led as Chairman of ISC',
       color: 'text-accent-glow',
     },
   ];
@@ -134,15 +134,15 @@ const StatsSection = () => {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12">
-        
+
         {/* Bento Grid Layout - Non-Monoton */}
         <div className="grid auto-rows-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          
+
           {/* Card 1 - Large */}
           <MagicCard className="sm:col-span-2 lg:col-span-2 lg:row-span-2">
             <div className="flex h-full min-h-[300px] flex-col justify-between p-8">
               <div className="space-y-4">
-                <div className={`font-poetsen text-7xl font-black md:text-8xl ${statsData[0].color}`}>
+                <div className={`font-mono text-7xl font-black md:text-8xl ${statsData[0].color}`}>
                   <AnimatedCounter value={statsData[0].number} suffix={statsData[0].suffix} />
                 </div>
                 <h3 className="font-roboto text-2xl font-bold text-text-light">
@@ -163,7 +163,7 @@ const StatsSection = () => {
           <MagicCard className="lg:col-span-2">
             <div className="flex min-h-[150px] items-center justify-between p-8">
               <div className="space-y-3">
-                <div className={`font-poetsen text-6xl font-black ${statsData[1].color}`}>
+                <div className={`font-mono text-6xl font-black ${statsData[1].color}`}>
                   <AnimatedCounter value={statsData[1].number} suffix={statsData[1].suffix} />
                 </div>
                 <h3 className="font-roboto text-xl font-semibold text-text-light">
@@ -179,7 +179,7 @@ const StatsSection = () => {
           {/* Card 3 - Small */}
           <MagicCard>
             <div className="min-h-[150px] space-y-4 p-6">
-              <div className={`font-poetsen text-5xl font-black ${statsData[2].color}`}>
+              <div className={`font-mono text-5xl font-black ${statsData[2].color}`}>
                 <AnimatedCounter value={statsData[2].number} suffix={statsData[2].suffix} />
               </div>
               <h3 className="font-roboto text-lg font-semibold text-text-light">
@@ -194,7 +194,7 @@ const StatsSection = () => {
           {/* Card 4 - Small */}
           <MagicCard>
             <div className="min-h-[150px] space-y-4 p-6">
-              <div className={`font-poetsen text-5xl font-black ${statsData[3].color}`}>
+              <div className={`font-mono text-5xl font-black ${statsData[3].color}`}>
                 <AnimatedCounter value={statsData[3].number} suffix={statsData[3].suffix} />
               </div>
               <h3 className="font-roboto text-lg font-semibold text-text-light">

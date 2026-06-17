@@ -3,7 +3,7 @@ title: Bonsai Store Website
 ---
 
 # Project: Bonsai Store Website (Landing Page)
-Oleh: **Mohaamad Tohari Maolana**
+Oleh: **Mohamad Tohari Maolana**
 
 ---
 
