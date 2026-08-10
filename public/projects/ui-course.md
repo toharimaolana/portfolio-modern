@@ -1,47 +1,47 @@
 ---
- Course Mobile App Design
+title: Course Mobile App Design
 ---
 
-# Project: Course Mobile App Design
-Oleh: **Mohamad Tohari Maolana**
-
----
-
-## Ringkasan Proyek
-
-Proyek ini adalah desain antarmuka (UI) penuh untuk aplikasi *e-learning* di platform mobile (iOS & Android). Tujuannya adalah menciptakan pengalaman belajar yang intuitif, menarik, dan mudah diakses bagi siswa di mana saja.
+# Project: Mobile E-Learning App Experience
+Author: **Mohamad Tohari Maolana**
 
 ---
 
-## Peran & Tujuan
+## Project Overview
 
-* **Peran Saya:** UI/UX Designer (Solo)
-* **Tujuan Proyek:** Merancang alur pengguna (user flow) yang logis dan antarmuka (UI) yang bersih, mulai dari *onboarding* pengguna baru, penjelajahan katalog kursus, hingga tampilan pemutar video (player) dan pelacakan kemajuan (progress).
-
----
-
-## Perangkat Desain (Tools)
-
-* **Desain & Prototyping:** Figma
-* **Aset & Ikon:** Adobe Illustrator
+A complete mobile interface (UI) design for an e-learning platform across iOS & Android. Recognized as a **Top 2 Winner out of 211 national teams** in a national UI/UX design competition, this project delivers an intuitive, engaging, and accessible mobile learning environment.
 
 ---
 
-## Galeri Desain & Alur Pengguna (Flow)
+## Role & Objectives
 
-Desain ini berfokus pada navigasi yang mudah dan keterbacaan yang tinggi.
+* **Role:** Lead UI/UX Designer
+* **Core Objectives:** Architect logical user flows and pristine interface designs spanning new user onboarding, course catalog discovery, distraction-free video playback, and real-time skill progress tracking.
 
-### 1. Onboarding & Halaman Utama
-Pengenalan aplikasi yang sederhana dan halaman utama yang dipersonalisasi untuk menampilkan kursus yang sedang diikuti dan rekomendasi.
+---
 
-![[Image Placeholder: Tampilan Onboarding & Home Screen App]](https://placeholder.com/800x600?text=Onboarding+&+Home+Screen)
+## Design Stack & Tools
 
-### 2. Detail Kursus & Pemutar Video
-Halaman detail kursus yang informatif dengan daftar materi. Tampilan pemutar video didesain *distraction-free* (bebas distraksi) dengan kontrol yang mudah dijangkau.
+* **Interface & Prototyping:** Figma
+* **Vector Assets & Graphics:** Adobe Illustrator
 
-![[Image Placeholder: Tampilan Detail Kursus & Video Player]](https://placeholder.com/800x600?text=Course+Detail+&+Player+Screen)
+---
 
-### 3. Style Guide & Komponen
-Panduan gaya (warna, tipografi) dan komponen UI (tombol, kartu kursus, ikon) yang dirancang untuk konsistensi di seluruh aplikasi.
+## Design Gallery & Key User Flows
 
-![[Image Placeholder: Style Guide & Komponen UI App]](https://placeholder.com/800x600?text=Mobile+App+Style+Guide)
+Designed with a heavy focus on zero-friction navigation, high legibility, and modern mobile aesthetics.
+
+### 1. Onboarding & Personalized Dashboard
+Streamlined onboarding experience accompanied by a personalized home dashboard displaying active enrollments, course recommendations, and streak metrics.
+
+![Onboarding & Home Dashboard Screen](/images/thumbnail-course.webp)
+
+### 2. Course Syllabus & Distraction-Free Video Player
+Comprehensive course detail screen presenting structured video modules. The media player interface is engineered for distraction-free learning with ergonomic control placement.
+
+![Course Detail & Video Player Interface](/images/thumbnail-course.webp)
+
+### 3. Design System & Component Library
+Curated design tokens (tailored color palette, accessible scale typography) and modular UI components (course cards, buttons, status indicators) enforcing design consistency.
+
+![App Style Guide & UI Components](/images/thumbnail-course.webp)

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, MapPin, Check, Copy, ArrowUpRight, Send, Sparkles } from 'lucide-react';
+import SectionHeader from '../components/ui/SectionHeader';
 import { supabase, isSupabaseConfigured } from '../utils/supabaseClient';
 
 const ContactPage = () => {
@@ -13,28 +15,33 @@ const ContactPage = () => {
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [copied, setCopied] = useState(false);
 
   const containerVariants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: 'easeOut', staggerChildren: 0.1 },
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 14 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
+    hidden: { opacity: 0, y: 16 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear field-specific error on typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
+  };
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('toharimaolana@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const validate = () => {
@@ -43,7 +50,7 @@ const ContactPage = () => {
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email.';
+      newErrors.email = 'Please enter a valid email address.';
     }
     if (!formData.subject.trim()) newErrors.subject = 'Subject is required.';
     if (!formData.message.trim()) {
@@ -77,15 +84,12 @@ const ContactPage = () => {
         ]);
         if (error) throw error;
       } else {
-        // Fallback: mailto link if Supabase is not configured
         const mailtoLink = `mailto:toharimaolana@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
         window.open(mailtoLink, '_blank');
       }
 
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-
-      // Auto-reset success message after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
     } catch (err) {
       console.error('Contact form submission error:', err);
@@ -94,113 +98,135 @@ const ContactPage = () => {
     }
   };
 
-  const inputBaseClass = `
-    w-full rounded-xl border bg-transparent
-    px-3 py-2.5 text-sm text-text-light/90
-    outline-none ring-0
-    placeholder:text-text-muted/60
-    backdrop-blur-xl
-    transition-colors
-    focus:border-accent-glow focus:bg-bg-surface/50
+  const underlineInputClass = `
+    w-full bg-transparent border-0 border-b border-white/[0.12]
+    px-0 py-3 text-sm text-text-light font-roboto
+    outline-none ring-0 placeholder:text-text-muted/40
+    transition-colors duration-300
+    focus:border-accent-glow focus:ring-0
   `;
 
   return (
-    <main className="bg-bg-base text-text-light">
+    <main className="bg-bg-base min-h-screen text-text-light relative overflow-hidden">
+      {/* Background Ambient Glow */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[140px]" />
+      </div>
+
       <section
-        className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 pt-24 pb-24 lg:flex-row lg:gap-16"
+        className="mx-auto w-full max-w-[1200px] px-6 pt-28 sm:pt-36 lg:pt-40 pb-24"
         aria-labelledby="contact-heading"
       >
+        {/* Unified Section Header */}
+        <SectionHeader
+          variant="contact"
+          number="04"
+          subheading="LET'S CONNECT"
+          heading="Start a Conversation"
+          description="Have a project in mind, a technical inquiry, or a potential collaboration? Reach out directly using the form or preferred channels below."
+        />
+
+        {/* Journal Minimalist Grid Layout */}
         <motion.div
-          className="flex w-full flex-col gap-10 lg:flex-row lg:items-start"
+          className="mt-14 border-t border-b border-border-highlight/10 grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-border-highlight/10"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.15 }}
         >
-          {/* LEFT: clean typography */}
-          <motion.div
-            variants={itemVariants}
-            className="w-full lg:w-[46%] space-y-5"
-          >
-            <p className="font-roboto text-[0.72rem] uppercase tracking-[0.26em] text-text-muted">
-              Contact
-            </p>
+          {/* LEFT COLUMN: Clean Editorial Info (Col Span 5) */}
+          <motion.div variants={itemVariants} className="lg:col-span-5 p-8 sm:p-10 space-y-8 flex flex-col justify-between">
+            <div className="space-y-8">
+              {/* Minimalist Status Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-highlight/20 bg-bg-surface/10 font-mono text-[0.7rem] uppercase tracking-wider text-text-muted">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-glow animate-pulse" />
+                <span>AVAILABLE FOR FREELANCE & ROLES</span>
+              </div>
 
-            <h1
-              id="contact-heading"
-              className="
-                font-poetsen
-                text-[2.6rem] sm:text-[3rem] lg:text-[3.3rem]
-                leading-tight tracking-tight
-              "
-            >
-              Tell me about
-              <span className="block">your next project.</span>
-            </h1>
+              {/* Direct Channels */}
+              <div className="space-y-6">
+                <div>
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-text-muted block mb-1">
+                    // DIRECT EMAIL
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <a href="mailto:toharimaolana@gmail.com" className="font-poetsen text-xl sm:text-2xl text-text-light hover:text-accent-glow transition-colors duration-300">
+                      toharimaolana@gmail.com
+                    </a>
+                    <button
+                      onClick={copyEmail}
+                      className="p-1.5 rounded-lg border border-border-highlight/20 text-text-muted hover:text-text-light hover:border-white/20 transition-all duration-300"
+                      title="Copy Email Address"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5 text-accent-glow" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
 
-            <p className="max-w-md font-roboto text-sm sm:text-base leading-relaxed text-text-muted">
-              A short brief is enough. Share your idea, goals, and timeline. If it&apos;s a good fit,
-              we&apos;ll move to a focused conversation and concrete next steps.
-            </p>
+                <div>
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-text-muted block mb-1">
+                    // LOCATION & TIMEZONE
+                  </span>
+                  <p className="font-roboto text-sm text-text-light">
+                    Jakarta, Indonesia <span className="text-text-muted">(UTC+7)</span>
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            <div className="pt-2 font-roboto text-xs text-text-muted/80">
-              <p className="mb-1">Preferred topics</p>
-              <ul className="space-y-1">
-                <li>— Web app UI / frontend</li>
-                <li>— Product or portfolio redesign</li>
-                <li>— Long‑term frontend collaboration</li>
-              </ul>
+            {/* Social Links */}
+            <div className="pt-8 border-t border-border-highlight/10 flex flex-wrap gap-2">
+              {[
+                { name: 'GitHub', url: 'https://github.com/toharimaolana' },
+                { name: 'LinkedIn', url: 'https://www.linkedin.com/in/mohamad-tohari-maolana/' },
+              ].map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-border-highlight/20 bg-bg-surface/10 font-mono text-[0.7rem] uppercase tracking-wider text-text-muted hover:border-accent-glow/30 hover:text-text-light transition-all duration-300"
+                >
+                  <span>{social.name}</span>
+                  <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              ))}
             </div>
           </motion.div>
 
-          {/* RIGHT: glassmorphism form card */}
-          <motion.div
-            variants={itemVariants}
-            className="
-              w-full lg:w-[54%]
-              rounded-3xl border border-border-highlight/40
-              bg-bg-surface/20
-              px-5 py-6 sm:px-7 sm:py-7
-              backdrop-blur-xl
-              shadow-[0_18px_60px_rgba(0,0,0,0.45)]
-              will-change-transform will-change-opacity
-            "
-          >
+          {/* RIGHT COLUMN: Ultra-Clean Minimalist Form (Col Span 7) */}
+          <motion.div variants={itemVariants} className="lg:col-span-7 p-8 sm:p-10">
             <AnimatePresence mode="wait">
               {status === 'success' ? (
                 <motion.div
                   key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="flex flex-col items-center justify-center gap-4 py-12 text-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="flex flex-col items-center justify-center gap-4 py-16 text-center"
                 >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent-glow/20">
-                    <svg className="h-8 w-8 text-accent-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent-glow/10 border border-accent-glow/30 text-accent-glow">
+                    <Check className="h-6 w-6" />
                   </div>
-                  <h3 className="font-poetsen text-2xl text-text-light">Message Sent!</h3>
-                  <p className="font-roboto text-sm text-text-muted max-w-xs">
-                    Thank you for reaching out. I&apos;ll get back to you within 1–2 business days.
+                  <h3 className="font-poetsen text-2xl text-text-light uppercase tracking-tight">Message Received</h3>
+                  <p className="font-roboto text-sm text-text-muted max-w-sm leading-relaxed">
+                    Thank you. Your message has been transmitted successfully. I will respond within 24 business hours.
                   </p>
                 </motion.div>
               ) : status === 'error' ? (
                 <motion.div
                   key="error"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="flex flex-col items-center justify-center gap-4 py-12 text-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="flex flex-col items-center justify-center gap-4 py-16 text-center"
                 >
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20">
-                    <svg className="h-8 w-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-500/10 border border-red-500/30 text-red-400">
+                    <span className="font-mono text-lg font-bold">!</span>
                   </div>
-                  <h3 className="font-poetsen text-2xl text-text-light">Something went wrong</h3>
-                  <p className="font-roboto text-sm text-text-muted max-w-xs">
-                    Please try again later or reach out directly via email.
+                  <h3 className="font-poetsen text-2xl text-text-light uppercase tracking-tight">Submission Error</h3>
+                  <p className="font-roboto text-sm text-text-muted max-w-sm leading-relaxed">
+                    Unable to transmit message. Please send a direct email to <a href="mailto:toharimaolana@gmail.com" className="text-accent-glow underline">toharimaolana@gmail.com</a>.
                   </p>
                 </motion.div>
               ) : (
@@ -209,115 +235,108 @@ const ContactPage = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="space-y-5 font-roboto"
+                  className="space-y-8"
                   autoComplete="off"
                   onSubmit={handleSubmit}
                   noValidate
                 >
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="flex flex-col gap-1.5">
-                      <label
-                        htmlFor="name"
-                        className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted"
-                      >
-                        Name
+                  <div className="grid gap-8 sm:grid-cols-2">
+                    <div className="space-y-1">
+                      <label htmlFor="name" className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-text-muted block">
+                        // 01 YOUR NAME
                       </label>
                       <input
                         id="name"
                         name="name"
                         type="text"
-                        placeholder="Your name"
+                        placeholder="Alex Morgan"
                         value={formData.name}
                         onChange={handleChange}
-                        className={`${inputBaseClass} ${errors.name ? 'border-red-400/60' : 'border-border-highlight/40'}`}
+                        className={`${underlineInputClass} ${errors.name ? 'border-red-400' : ''}`}
                       />
-                      {errors.name && <p className="text-xs text-red-400">{errors.name}</p>}
+                      {errors.name && <p className="font-mono text-[0.65rem] text-red-400 pt-1">{errors.name}</p>}
                     </div>
 
-                    <div className="flex flex-col gap-1.5">
-                      <label
-                        htmlFor="email"
-                        className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted"
-                      >
-                        Email
+                    <div className="space-y-1">
+                      <label htmlFor="email" className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-text-muted block">
+                        // 02 EMAIL ADDRESS
                       </label>
                       <input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder="alex@company.com"
                         value={formData.email}
                         onChange={handleChange}
-                        className={`${inputBaseClass} ${errors.email ? 'border-red-400/60' : 'border-border-highlight/40'}`}
+                        className={`${underlineInputClass} ${errors.email ? 'border-red-400' : ''}`}
                       />
-                      {errors.email && <p className="text-xs text-red-400">{errors.email}</p>}
+                      {errors.email && <p className="font-mono text-[0.65rem] text-red-400 pt-1">{errors.email}</p>}
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label
-                      htmlFor="subject"
-                      className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted"
-                    >
-                      Subject
+                  <div className="space-y-1">
+                    <label htmlFor="subject" className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-text-muted block">
+                      // 03 SUBJECT / TOPIC
                     </label>
                     <input
                       id="subject"
                       name="subject"
                       type="text"
-                      placeholder="Project, collaboration, or question"
+                      placeholder="Web App Architecture / Design System / Project Inquiry"
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`${inputBaseClass} ${errors.subject ? 'border-red-400/60' : 'border-border-highlight/40'}`}
+                      className={`${underlineInputClass} ${errors.subject ? 'border-red-400' : ''}`}
                     />
-                    {errors.subject && <p className="text-xs text-red-400">{errors.subject}</p>}
+                    {errors.subject && <p className="font-mono text-[0.65rem] text-red-400 pt-1">{errors.subject}</p>}
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label
-                      htmlFor="message"
-                      className="text-xs font-medium uppercase tracking-[0.16em] text-text-muted"
-                    >
-                      Message
+                  <div className="space-y-1">
+                    <label htmlFor="message" className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-text-muted block">
+                      // 04 PROJECT DETAILS / MESSAGE
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       rows={4}
-                      placeholder="Share context, goals, and any links that help me understand."
+                      placeholder="Share context, timeline, or key objectives..."
                       value={formData.message}
                       onChange={handleChange}
-                      className={`${inputBaseClass} resize-none ${errors.message ? 'border-red-400/60' : 'border-border-highlight/40'}`}
+                      className={`${underlineInputClass} resize-none ${errors.message ? 'border-red-400' : ''}`}
                     />
-                    {errors.message && <p className="text-xs text-red-400">{errors.message}</p>}
+                    {errors.message && <p className="font-mono text-[0.65rem] text-red-400 pt-1">{errors.message}</p>}
                   </div>
 
-                  <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-xs text-text-muted">
-                      Replies typically within 1–2 business days.
-                    </p>
+                  <div className="pt-4 flex items-center justify-between">
+                    <span className="font-mono text-[0.65rem] text-text-muted/60 uppercase tracking-widest">
+                      // RESPONSE SLA: 24 HOURS
+                    </span>
+
                     <motion.button
                       type="submit"
                       disabled={status === 'sending'}
-                      whileTap={{ scale: 0.96 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       className={`
-                        inline-flex items-center justify-center gap-2
-                        rounded-full px-6 py-2.5
-                        text-xs font-semibold uppercase tracking-[0.18em]
-                        transition-colors duration-200
+                        inline-flex items-center gap-2 px-7 py-2.5 rounded-full
+                        font-mono text-xs uppercase tracking-wider font-medium
+                        transition-all duration-300 border
                         ${status === 'sending'
-                          ? 'bg-text-muted/50 text-bg-base cursor-not-allowed'
-                          : 'bg-text-light text-bg-base hover:bg-accent-glow'
+                          ? 'border-white/10 bg-white/5 text-text-muted cursor-not-allowed'
+                          : 'border-white/20 bg-white/10 text-text-light hover:border-accent-glow hover:bg-accent-glow hover:text-bg-base'
                         }
                       `}
                     >
-                      {status === 'sending' && (
-                        <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                        </svg>
+                      {status === 'sending' ? (
+                        <>
+                          <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                          <span>SENDING...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>SEND MESSAGE</span>
+                          <Send className="w-3.5 h-3.5" />
+                        </>
                       )}
-                      {status === 'sending' ? 'Sending...' : 'Send Message'}
                     </motion.button>
                   </div>
                 </motion.form>

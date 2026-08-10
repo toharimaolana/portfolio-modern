@@ -1,9 +1,9 @@
 ---
-title: Sistem Manajemen Modul & Proyek Mahasiswa
+title: Civic Complaint Management Platform
 ---
 
-# Sistem Manajemen Modul & Proyek Mahasiswa
-Oleh: **Mohamad Tohari Maolana**
+# Civic Complaint Management Platform
+Author: **Mohamad Tohari Maolana**
 
 ---
 

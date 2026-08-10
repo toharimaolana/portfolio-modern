@@ -2,37 +2,37 @@
 title: Global Healthcare Solutions
 ---
 
-# Project: Global Healthcare Solutions (Landing Page)
-Oleh: **Mohamad Tohari Maolana**
+# Project: Helena Mobile Health Telemetry App
+Author: **Mohamad Tohari Maolana**
 
 ---
 
-## Ringkasan Proyek
+## Project Overview
 
-Ini adalah proyek desain antarmuka (UI) untuk *landing page* sebuah perusahaan teknologi kesehatan global. Desain ini bertujuan untuk membangun kepercayaan dan mengkomunikasikan solusi teknologi yang kompleks secara sederhana dan profesional.
-
----
-
-## Peran & Tujuan
-
-* **Peran Saya:** UI Designer
-* **Tujuan Desain:** Menciptakan tampilan yang bersih, modern, dan terpercaya (*trustworthy*). Fokus utama adalah mengarahkan pengunjung (traffic) korporat untuk mempelajari lebih lanjut tentang layanan (solusi) atau meminta demo.
+An end-to-end mobile user interface design engineered for a global digital health platform. The application aims to foster user trust while translating complex health telemetry data into simple, legible, and actionable insights for patients and medical providers.
 
 ---
 
-## Perangkat Desain (Tools)
+## Role & Objectives
 
-* **Desain & Layout:** Figma
+* **Role:** Lead UI/UX Designer
+* **Core Objectives:** Design a clean, reassuring interface that streamlines online specialist appointments, health metric monitoring, and patient consultation workflows.
 
 ---
 
-## Desain Final (Full Page View)
+## Design Stack & Tools
 
-Desain mengutamakan *hero section* yang kuat, palet warna biru yang menenangkan (melambangkan kepercayaan), dan tipografi *sans-serif* yang modern agar mudah dibaca.
+* **Interface & Layout:** Figma
 
-![[Image Placeholder: Tampilan Penuh Landing Page Healthcare]](https://placeholder.com/800x1200?text=Healthcare+Landing+Page+Full+View)
+---
 
-### Palet Warna & Tipografi
-Palet warna dan pilihan font yang digunakan untuk membangun citra profesional dan teknologi.
+## Final High-Fidelity Design Showcase
 
-![[Image Placeholder: Style Guide Healthcare Page]](https://placeholder.com/800x400?text=Healthcare+Style+Guide)
+The interface prioritizes a strong hero landing layout, reassuring clinical blue palette (evoking institutional trust), and crisp sans-serif typography engineered for rapid scanning under stress.
+
+![Helena Mobile Health App Interface](/images/thumbnail-helena.webp)
+
+### Clinical Color System & Design Tokens
+Harmonized palette and typography scale established to communicate authority, calm reassurance, and modern medical technology.
+
+![Healthcare Design Tokens & Style Guide](/images/thumbnail-helena.webp)

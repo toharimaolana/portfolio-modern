@@ -31,6 +31,29 @@ const defaultSectionProps = {
   description: "A curated timeline of my professional growth, highlighting key milestones and high-impact solutions delivered in web engineering."
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 const TimelineSection = ({ 
   items = defaultJourneyItems, 
   sectionProps = defaultSectionProps 
@@ -45,9 +68,9 @@ const TimelineSection = ({
         <div className="absolute right-10 top-1/3 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px] z-0" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 pt-28 sm:pt-32 lg:pt-40 pb-24">
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 pt-16 sm:pt-24 lg:pt-32 pb-16 sm:pb-24">
         
-        {/* Section Header - Utilizing the projects variant for asymmetric visual hierarchy */}
+        {/* Section Header */}
         <SectionHeader
           variant="projects"
           number="03"
@@ -56,24 +79,29 @@ const TimelineSection = ({
           description={sectionProps.description}
         />
 
-        {/* The Grid Journal Layout */}
-        <div className="mt-12 border-b border-border-highlight/10">
+        {/* Orchestrated Stagger Grid Journal Layout */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="mt-8 sm:mt-12 border-b border-border-highlight/10"
+        >
           {items.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 py-10 sm:py-12 border-t border-border-highlight/10 transition-all duration-300 hover:bg-white/[0.01]"
+              variants={itemVariants}
+              whileHover={{ x: 6 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 py-8 sm:py-12 border-t border-border-highlight/10 transition-colors duration-300 hover:bg-white/[0.015] will-change-transform cursor-default"
             >
               
               {/* Left Column: Period & Archive Label (Col Span 4) */}
               <div className="lg:col-span-4 flex flex-col items-start justify-start">
-                <span className="font-mono text-[0.65rem] sm:text-xs tracking-[0.2em] text-text-muted mb-2 uppercase">
+                <span className="font-mono text-[0.68rem] sm:text-xs tracking-[0.2em] text-text-muted mb-1.5 uppercase">
                   // PERIOD ARCHIVE
                 </span>
-                <h3 className="font-poetsen text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.05em] text-accent-glow uppercase leading-none group-hover:text-text-light transition-colors duration-300">
+                <h3 className="font-poetsen text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-accent-glow uppercase leading-none group-hover:text-text-light transition-colors duration-300">
                   {item.year}
                 </h3>
               </div>
@@ -107,15 +135,15 @@ const TimelineSection = ({
 
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Dynamic Forward Indicator */}
         <motion.div
           className="mt-16 flex items-center gap-3 text-text-muted font-mono text-xs uppercase tracking-[0.15em]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-glow opacity-75"></span>

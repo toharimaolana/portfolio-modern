@@ -22,7 +22,7 @@ const SectionContainer = ({ children }) => {
  */
 export const Layout = ({ children }) => {
   return (
-    <div className="flex min-h-screen flex-col bg-[#060010]">
+    <div className="flex min-h-screen flex-col bg-bg-base">
       <SectionContainer>
         <NavbarSection />
       </SectionContainer>

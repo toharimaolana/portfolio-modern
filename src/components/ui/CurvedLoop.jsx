@@ -32,7 +32,7 @@ const CurvedLoop = ({
     const updateViewBox = () => {
       setViewBoxWidth(Math.max(window.innerWidth, 1440));
     };
-    
+
     updateViewBox();
     window.addEventListener('resize', updateViewBox);
     return () => window.removeEventListener('resize', updateViewBox);
@@ -41,15 +41,15 @@ const CurvedLoop = ({
   // Dynamic path calculation based on viewBox width
   const pathD = useMemo(() => {
     const midPoint = viewBoxWidth / 2;
-    const controlY = 60 + curveAmount;
-    return `M-100,60 Q${midPoint},${controlY} ${viewBoxWidth + 100},60`;
+    const controlY = 75 + curveAmount;
+    return `M-100,75 Q${midPoint},${controlY} ${viewBoxWidth + 100},75`;
   }, [viewBoxWidth, curveAmount]);
 
   const textLength = spacing;
   const totalText = textLength
-    ? Array(Math.ceil(viewBoxWidth * 1.5 / textLength) + 2)
-        .fill(text)
-        .join('')
+    ? Array(Math.ceil(viewBoxWidth * 1.6 / textLength) + 2)
+      .fill(text)
+      .join('')
     : text;
   const ready = spacing > 0;
 
@@ -78,7 +78,6 @@ const CurvedLoop = ({
         if (newOffset <= -wrapPoint) newOffset += wrapPoint;
         if (newOffset > 0) newOffset -= wrapPoint;
         textPathRef.current.setAttribute('startOffset', newOffset + 'px');
-        setOffset(newOffset);
       }
       frame = requestAnimationFrame(step);
     };
@@ -105,7 +104,6 @@ const CurvedLoop = ({
     if (newOffset <= -wrapPoint) newOffset += wrapPoint;
     if (newOffset > 0) newOffset -= wrapPoint;
     textPathRef.current.setAttribute('startOffset', newOffset + 'px');
-    setOffset(newOffset);
   };
 
   const endDrag = () => {
@@ -118,7 +116,7 @@ const CurvedLoop = ({
 
   return (
     <div
-      className="w-full h-[75px] bg-[#924DBF] flex items-center justify-center overflow-hidden"
+      className={`group relative w-full h-[110px] sm:h-[130px] bg-transparent border-none flex items-center justify-center overflow-hidden ${className ?? ''}`}
       style={{ visibility: ready ? 'visible' : 'hidden', cursor: cursorStyle }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -126,8 +124,8 @@ const CurvedLoop = ({
       onPointerLeave={endDrag}
     >
       <svg
-        className="select-none w-full h-full overflow-visible block text-2xl font-bold uppercase leading-none"
-        viewBox={`0 0 ${viewBoxWidth} 120`}
+        className="select-none w-full h-full overflow-visible block font-poetsen font-black text-2xl sm:text-3xl md:text-4xl uppercase leading-none tracking-wider"
+        viewBox={`0 0 ${viewBoxWidth} 150`}
         preserveAspectRatio="xMidYMid slice"
       >
         <text ref={measureRef} xmlSpace="preserve" style={{ visibility: 'hidden', opacity: 0, pointerEvents: 'none' }}>
@@ -137,7 +135,7 @@ const CurvedLoop = ({
           <path ref={pathRef} id={pathId} d={pathD} fill="none" stroke="transparent" />
         </defs>
         {ready && (
-          <text xmlSpace="preserve" className={`fill-white ${className ?? ''}`}>
+          <text xmlSpace="preserve" className="fill-text-light group-hover:fill-accent-glow/90 transition-colors duration-300">
             <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
               {totalText}
             </textPath>

@@ -35,21 +35,18 @@ const fadeRight = (delay = 0) => ({
 const achievements = [
   {
     emoji: '🏆',
-    title: 'National UI/UX Winner',
-    detail: 'Top 2 of 211 Teams · 560 Participants',
-    featured: true,
+    title: 'National Winner',
+    detail: 'Top 2 of 211 Teams',
   },
   {
     emoji: '👨‍💼',
     title: 'ISC Chairman',
-    detail: '200+ Active Members',
-    featured: false,
+    detail: '200+ Members',
   },
   {
     emoji: '🎤',
     title: 'Guest Speaker',
-    detail: '',
-    featured: false,
+    detail: 'Informatics Seminars',
   },
 ];
 
@@ -99,14 +96,14 @@ const HeroSection = () => {
             autoRampDuration={0.6}
           />
         </div>
-        {/* heavier overlay — content is the star, not the background */}
+        {/* overlay */}
         <div className="pointer-events-none absolute inset-0 bg-bg-base/75" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-bg-base/85 via-bg-base/40 to-bg-base/90" />
       </div>
 
       {/* ── Content ── */}
       <motion.div
-        className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col gap-12 px-6 py-28 lg:flex-row lg:items-center lg:gap-16"
+        className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-6 py-20 sm:py-24 lg:py-28 lg:flex-row lg:items-center lg:gap-16"
         variants={containerVariants}
         initial="hidden"
         animate={controls}
@@ -118,17 +115,16 @@ const HeroSection = () => {
           <motion.div
             variants={fadeUp(0)}
             className="
-              mb-8 inline-flex items-center gap-2.5 rounded-full
-              border border-border-highlight/30 bg-bg-surface/15
-              px-4 py-2 backdrop-blur-xl
-              shadow-[0_8px_32px_rgba(0,0,0,0.3)]
+              mb-6 sm:mb-8 inline-flex items-center gap-2.5 rounded-full
+              border border-white/[0.08] bg-white/[0.03]
+              px-4 py-1.5
             "
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400" />
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            <span className="font-roboto text-[0.7rem] font-medium uppercase tracking-[0.16em] text-text-muted">
+            <span className="font-mono text-[0.68rem] sm:text-[0.7rem] font-medium uppercase tracking-wider text-text-muted">
               Available for work
             </span>
           </motion.div>
@@ -138,12 +134,12 @@ const HeroSection = () => {
             variants={fadeUp(0.08)}
             className="
               font-poetsen font-extrabold tracking-[-0.04em]
-              leading-[0.88] text-text-light
-              text-[3rem] sm:text-[3.8rem] md:text-[4.5rem] lg:text-[5.2rem] xl:text-[6rem]
+              leading-[0.9] text-text-light
+              text-[2.6rem] min-[380px]:text-[3.2rem] sm:text-[4rem] md:text-[4.8rem] lg:text-[5.4rem] xl:text-[6rem]
             "
           >
             <span className="block">TOHARI</span>
-            <span className="block mt-1 bg-gradient-to-r from-text-light via-accent-glow/90 to-secondary bg-clip-text text-transparent">
+            <span className="block mt-1 text-accent-glow/80">
               MAOLANA
             </span>
           </motion.h1>
@@ -152,14 +148,14 @@ const HeroSection = () => {
           <motion.p
             variants={fadeUp(0.16)}
             className="
-              mt-5 font-roboto text-[0.8rem] sm:text-[0.85rem]
-              font-medium uppercase tracking-[0.14em] text-accent-glow
+              mt-4 sm:mt-5 font-roboto text-[0.75rem] sm:text-[0.85rem]
+              font-medium uppercase tracking-[0.12em] sm:tracking-[0.14em] text-text-muted
             "
           >
             Frontend Engineer{' '}
-            <span className="text-border-highlight/60 mx-1">·</span>{' '}
+            <span className="text-white/20 mx-1">·</span>{' '}
             Community Builder{' '}
-            <span className="text-border-highlight/60 mx-1">·</span>{' '}
+            <span className="text-white/20 mx-1">·</span>{' '}
             Tech Enthusiast
           </motion.p>
 
@@ -167,50 +163,33 @@ const HeroSection = () => {
           <motion.p
             variants={fadeUp(0.24)}
             className="
-              mt-5 max-w-lg font-roboto text-[0.95rem] sm:text-base
+              mt-4 sm:mt-5 max-w-lg font-roboto text-sm sm:text-base
               leading-relaxed text-text-muted
             "
           >
-            I build products that ship, lead teams that grow,
-            and write code that scales — specializing in{' '}
-            <span className="font-medium text-text-light/90">React</span>,{' '}
-            <span className="font-medium text-text-light/90">modern UI</span>, and{' '}
-            <span className="font-medium text-text-light/90">design systems</span>.
+            I ship production-grade <span className="font-medium text-text-light/90">React interfaces</span>, led a 200+ member tech community, and won National UI/UX recognition — turning complex concepts into robust, scalable web products.
           </motion.p>
 
           {/* CTAs — Priority 5 */}
           <motion.div
             variants={fadeUp(0.32)}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+            className="mt-7 sm:mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 w-full sm:w-auto"
           >
             {/* Primary CTA */}
             <motion.a
               href="/projects"
               className="
                 group relative inline-flex items-center justify-center overflow-hidden
-                rounded-full bg-gradient-to-r from-primary via-secondary to-accent-glow
-                px-7 py-3 font-roboto text-[0.8rem] font-semibold uppercase tracking-[0.1em]
-                text-text-light shadow-[0_12px_40px_rgba(82,39,255,0.3)]
-                will-change-transform
+                rounded-full bg-white px-7 py-3.5 sm:py-3 font-mono text-xs uppercase tracking-[0.12em]
+                text-bg-base font-semibold hover:bg-text-light transition-all duration-300 shadow-md w-full sm:w-auto
               "
-              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2">
                 View My Work
-                <motion.svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.4, repeat: Infinity }}
-                >
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0-5 5m5-5H6" />
-                </motion.svg>
-              </span>
-              <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-40">
-                <span className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/30 to-white/10" />
+                </svg>
               </span>
             </motion.a>
 
@@ -221,16 +200,14 @@ const HeroSection = () => {
               rel="noopener noreferrer"
               className="
                 group inline-flex items-center justify-center gap-2
-                rounded-full border border-border-highlight/40
-                px-6 py-3 font-roboto text-[0.8rem] font-medium uppercase tracking-[0.1em]
+                rounded-full border border-white/[0.08] bg-white/[0.02]
+                px-6 py-3.5 sm:py-3 font-mono text-xs uppercase tracking-[0.12em]
                 text-text-muted transition-colors duration-300
-                hover:border-accent-glow/50 hover:text-text-light
-                will-change-transform
+                hover:border-white/20 hover:text-text-light w-full sm:w-auto
               "
-              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-3.5 w-3.5 text-accent-glow/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3" />
               </svg>
               Resume
@@ -240,17 +217,17 @@ const HeroSection = () => {
           {/* Social Links Row — Priority 6 */}
           <motion.div
             variants={fadeUp(0.4)}
-            className="mt-7 flex items-center gap-1 font-roboto text-[0.78rem] text-text-muted/60"
+            className="mt-6 sm:mt-7 flex items-center gap-1 font-roboto text-[0.75rem] sm:text-[0.78rem] text-text-muted/70 flex-wrap"
           >
             {socials.map((s, i) => (
               <React.Fragment key={s.label}>
-                {i > 0 && <span className="mx-2 select-none">·</span>}
+                {i > 0 && <span className="mx-2 select-none text-white/20">·</span>}
                 <a
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
-                    relative transition-colors duration-200 hover:text-text-light
+                    relative transition-colors duration-200 hover:text-text-light py-1
                     after:absolute after:bottom-0 after:left-0
                     after:h-px after:w-0 after:bg-accent-glow/50
                     after:transition-all after:duration-300 hover:after:w-full
@@ -263,10 +240,10 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* ═══ RIGHT COLUMN (40%) — Editorial Constellation ═══ */}
-        <div className="relative flex w-full items-center justify-center lg:w-[42%] lg:min-h-[520px]">
+        {/* ═══ RIGHT COLUMN (40%) — Portrait & Floating Badges (DESKTOP ONLY) ═══ */}
+        <div className="hidden lg:flex relative w-full flex-col items-center justify-center lg:w-[42%]">
 
-          {/* Decorative accent line — vertical thin stroke */}
+          {/* Decorative accent line */}
           <motion.div
             variants={fadeRight(0.1)}
             className="
@@ -275,14 +252,14 @@ const HeroSection = () => {
             "
           />
 
-          {/* Photo — slightly offset from center for asymmetry */}
+          {/* Photo */}
           <motion.div
             variants={fadeRight(0.15)}
-            className="relative lg:mr-6"
+            className="relative"
           >
-            {/* Ambient glow — soft, not a ring */}
+            {/* Ambient glow */}
             <div
-              className="absolute -inset-8 opacity-40 blur-3xl"
+              className="absolute -inset-6 opacity-40 blur-3xl pointer-events-none"
               style={{
                 background: 'radial-gradient(circle, rgba(199,125,255,0.35) 0%, rgba(82,39,255,0.15) 50%, transparent 70%)',
               }}
@@ -291,88 +268,41 @@ const HeroSection = () => {
               src="/images/profile.webp"
               alt="Mohamad Tohari Maolana"
               className="
-                relative z-10 h-40 w-40 sm:h-44 sm:w-44 lg:h-52 lg:w-52
+                relative z-10 h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52
                 rounded-full object-cover
-                border border-white/[0.06]
+                border border-white/[0.08]
                 shadow-[0_24px_80px_rgba(0,0,0,0.6)]
               "
               loading="eager"
             />
           </motion.div>
 
-          {/* ── Achievement Fragments — scattered typographic elements ── */}
-
-          {/* Fragment 1: National Winner — top-right, largest */}
+          {/* Mobile Clean Badge Strip / Desktop Constellation */}
           <motion.div
             variants={fadeRight(0.3)}
-            animate={{ y: [0, -7, 0] }}
-            transition={{ y: { duration: 5, repeat: Infinity, ease: 'easeInOut' } }}
-            className="
-              absolute top-[6%] right-[2%]
-              sm:top-[8%] sm:right-[4%]
-              lg:top-[4%] lg:right-[-2%]
-              text-right
-            "
+            className="mt-6 sm:mt-0 lg:mt-0 flex flex-wrap sm:block justify-center gap-3 w-full sm:w-auto"
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-glow shadow-[0_0_12px_rgba(199,125,255,0.8)] mb-2 ml-auto" />
-            <p className="font-mono text-[0.875rem] font-bold uppercase tracking-[0.08em] text-text-light/90">
-              National Winner
-            </p>
-            <p className="font-mono text-[0.75rem] tracking-[0.04em] text-accent-glow/70 mt-0.5">
-              Top 2 / 211 Teams
-            </p>
-          </motion.div>
+            {/* Fragment 1: National Winner */}
+            <div className="sm:absolute sm:top-[4%] sm:right-[2%] lg:top-[4%] lg:right-[-2%] text-center sm:text-right bg-white/[0.02] sm:bg-transparent border sm:border-0 border-white/[0.08] p-2.5 sm:p-0 rounded-xl">
+              <span className="hidden sm:inline-block h-1.5 w-1.5 rounded-full bg-accent-glow shadow-[0_0_12px_rgba(199,125,255,0.8)] mb-2 ml-auto" />
+              <p className="font-mono text-[0.78rem] sm:text-[0.875rem] font-bold uppercase tracking-[0.08em] text-text-light/90">
+                National Winner
+              </p>
+              <p className="font-mono text-[0.7rem] sm:text-[0.75rem] tracking-[0.04em] text-accent-glow/80 mt-0.5">
+                Top 2 / 211 Teams
+              </p>
+            </div>
 
-          {/* Fragment 2: ISC Chairman — bottom-right */}
-          <motion.div
-            variants={fadeRight(0.4)}
-            animate={{ y: [0, -5, 0] }}
-            transition={{ y: { duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 0.8 } }}
-            className="
-              absolute bottom-[14%] right-[4%]
-              sm:bottom-[16%] sm:right-[6%]
-              lg:bottom-[12%] lg:right-[0%]
-              text-right
-            "
-          >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-secondary shadow-[0_0_10px_rgba(146,77,191,0.7)] mb-2 ml-auto" />
-            <p className="font-mono text-[0.875rem] font-semibold uppercase tracking-[0.06em] text-text-light/75">
-              ISC Chairman
-            </p>
-            <p className="font-mono text-[0.75rem] tracking-[0.04em] text-text-muted/50 mt-0.5">
-              200+ Members
-            </p>
-          </motion.div>
-
-          {/* Fragment 3: Guest Speaker — bottom-left, smallest, faintest */}
-          <motion.div
-            variants={fadeRight(0.5)}
-            animate={{ y: [0, -4, 0] }}
-            transition={{ y: { duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 1.5 } }}
-            className="
-              absolute bottom-[6%] left-[6%]
-              sm:bottom-[8%] sm:left-[8%]
-              lg:bottom-[24%] lg:left-[2%]
-            "
-          >
-            <span className="inline-block h-1 w-1 rounded-full bg-primary/60 shadow-[0_0_8px_rgba(115,56,160,0.5)] mb-1.5" />
-            <p className="font-mono text-[0.875rem] font-medium uppercase tracking-[0.06em] text-text-light/50">
-              Guest Speaker
-            </p>
-          </motion.div>
-
-          {/* Fragment 4: Decorative number — large faded stat */}
-          <motion.div
-            variants={fadeRight(0.55)}
-            className="
-              absolute top-[2%] left-[8%]
-              lg:top-[8%] lg:left-[4%]
-              select-none pointer-events-none
-            "
-          >
-            <span className="font-mono text-[3.5rem] sm:text-[4.5rem] lg:text-[5rem] font-black text-text-light/[0.03] leading-none tracking-tighter">
-              02
-            </span>
+            {/* Fragment 2: ISC Chairman */}
+            <div className="sm:absolute sm:bottom-[12%] sm:right-[4%] lg:bottom-[12%] lg:right-[0%] text-center sm:text-right bg-white/[0.02] sm:bg-transparent border sm:border-0 border-white/[0.08] p-2.5 sm:p-0 rounded-xl">
+              <span className="hidden sm:inline-block h-1.5 w-1.5 rounded-full bg-secondary shadow-[0_0_10px_rgba(146,77,191,0.7)] mb-2 ml-auto" />
+              <p className="font-mono text-[0.78rem] sm:text-[0.875rem] font-semibold uppercase tracking-[0.06em] text-text-light/80">
+                ISC Chairman
+              </p>
+              <p className="font-mono text-[0.7rem] sm:text-[0.75rem] tracking-[0.04em] text-text-muted/60 mt-0.5">
+                200+ Members
+              </p>
+            </div>
           </motion.div>
 
         </div>

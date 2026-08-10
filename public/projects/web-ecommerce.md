@@ -3,7 +3,7 @@ title: MyTOKO — Multi-Vendor E-Commerce Platform
 ---
 
 # MyTOKO — Multi-Vendor E-Commerce Platform
-Oleh: **Mohamad Tohari Maolana**
+Author: **Mohamad Tohari Maolana**
 
 ---
 

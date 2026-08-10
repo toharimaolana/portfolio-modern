@@ -139,16 +139,16 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, isHovered, pauseOn
 export const LogoLoop = memo(
   ({
     logos,
-    speed = 120,
+    speed = 35,
     direction = 'left',
     width = '100%',
-    logoHeight = 28,
-    gap = 32,
+    logoHeight = 36,
+    gap = 20,
     pauseOnHover = true,
-    fadeOut = false,
-    fadeOutColor,
+    fadeOut = true,
+    fadeOutColor = '#060010',
     scaleOnHover = false,
-    ariaLabel = 'Partner logos',
+    ariaLabel = 'Tech stack logos',
     className,
     style
   }) => {
@@ -196,15 +196,10 @@ export const LogoLoop = memo(
     const rootClasses = useMemo(
       () =>
         cx(
-          'relative overflow-x-hidden group',
-          '[--logoloop-gap:32px]',
-          '[--logoloop-logoHeight:28px]',
-          '[--logoloop-fadeColorAuto:#ffffff]',
-          'dark:[--logoloop-fadeColorAuto:#0b0b0b]',
-          scaleOnHover && 'py-[calc(var(--logoloop-logoHeight)*0.1)]',
+          'relative overflow-x-hidden group py-2',
           className
         ),
-      [scaleOnHover, className]
+      [className]
     );
 
     const handleMouseEnter = useCallback(() => {
@@ -220,50 +215,42 @@ export const LogoLoop = memo(
         const isNodeItem = 'node' in item;
 
         const content = isNodeItem ? (
-          <span
-            className={cx(
-              'inline-flex items-center',
-              'motion-reduce:transition-none',
-              scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
-            )}
-            aria-hidden={!!item.href && !item.ariaLabel}
+          <div
+            className="group/item relative flex items-center justify-center cursor-pointer select-none py-2 transition-all duration-300"
           >
-            {item.node}
-          </span>
+            {/* Logo Icon — Grayscale by default, color & scale on hover */}
+            <span 
+              className="text-2xl sm:text-3xl lg:text-4xl flex items-center justify-center transition-all duration-300 text-text-muted/50 hover:text-text-light hover:scale-110 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100"
+              style={{ color: item.color }}
+            >
+              {item.node}
+            </span>
+          </div>
         ) : (
-          <img
-            className={cx(
-              'h-[var(--logoloop-logoHeight)] w-auto block object-contain',
-              '[-webkit-user-drag:none] pointer-events-none',
-              '[image-rendering:-webkit-optimize-contrast]',
-              'motion-reduce:transition-none',
-              scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
-            )}
-            src={item.src}
-            srcSet={item.srcSet}
-            sizes={item.sizes}
-            width={item.width}
-            height={item.height}
-            alt={item.alt ?? ''}
-            title={item.title}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-          />
+          <div
+            className="group/item relative flex items-center justify-center cursor-pointer select-none py-2 transition-all duration-300"
+          >
+            <img
+              className="h-6 sm:h-7 w-auto block object-contain transition-all duration-300 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 hover:scale-110"
+              src={item.src}
+              srcSet={item.srcSet}
+              sizes={item.sizes}
+              width={item.width}
+              height={item.height}
+              alt={item.alt ?? item.title ?? ''}
+              title={item.title}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
+          </div>
         );
 
         const itemAriaLabel = isNodeItem ? (item.ariaLabel ?? item.title) : (item.alt ?? item.title);
 
         const inner = item.href ? (
           <a
-            className={cx(
-              'inline-flex items-center no-underline rounded',
-              'transition-opacity duration-200 ease-linear',
-              'hover:opacity-80',
-              'focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2'
-            )}
+            className="inline-flex items-center no-underline focus:outline-none focus-visible:ring-1 focus-visible:ring-text-light/50 rounded-full"
             href={item.href}
             aria-label={itemAriaLabel || 'logo link'}
             target="_blank"
@@ -277,10 +264,7 @@ export const LogoLoop = memo(
 
         return (
           <li
-            className={cx(
-              'flex-none mr-[var(--logoloop-gap)] text-[length:var(--logoloop-logoHeight)] leading-[1]',
-              scaleOnHover && 'overflow-visible group/item'
-            )}
+            className="flex-none mr-[var(--logoloop-gap)]"
             key={key}
             role="listitem"
           >
@@ -288,7 +272,7 @@ export const LogoLoop = memo(
           </li>
         );
       },
-      [scaleOnHover]
+      []
     );
 
     const logoLists = useMemo(
@@ -331,24 +315,24 @@ export const LogoLoop = memo(
             <div
               aria-hidden
               className={cx(
-                'pointer-events-none absolute inset-y-0 left-0 z-[1]',
-                'w-[clamp(24px,8%,120px)]',
-                'bg-[linear-gradient(to_right,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                'pointer-events-none absolute inset-y-0 left-0 z-[10]',
+                'w-[clamp(40px,15%,180px)]',
+                'bg-[linear-gradient(to_right,var(--logoloop-fadeColor,#060010)_0%,rgba(6,0,16,0)_100%)]'
               )}
             />
             <div
               aria-hidden
               className={cx(
-                'pointer-events-none absolute inset-y-0 right-0 z-[1]',
-                'w-[clamp(24px,8%,120px)]',
-                'bg-[linear-gradient(to_left,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                'pointer-events-none absolute inset-y-0 right-0 z-[10]',
+                'w-[clamp(40px,15%,180px)]',
+                'bg-[linear-gradient(to_left,var(--logoloop-fadeColor,#060010)_0%,rgba(6,0,16,0)_100%)]'
               )}
             />
           </>
         )}
 
         <div
-          className={cx('flex w-max will-change-transform select-none', 'motion-reduce:transform-none')}
+          className={cx('flex w-max will-change-transform select-none py-1', 'motion-reduce:transform-none')}
           ref={trackRef}
         >
           {logoLists}
@@ -361,3 +345,6 @@ export const LogoLoop = memo(
 LogoLoop.displayName = 'LogoLoop';
 
 export default LogoLoop;
+
+
+

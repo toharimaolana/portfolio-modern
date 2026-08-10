@@ -1,30 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useLocation, Link } from 'react-router-dom';
 
 const NavbarComponent = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
-  const location = useLocation(); // Deteksi current route
+  const location = useLocation();
 
-  // Efek blur & background muncul halus saat scroll
-  const navBackground = useTransform(
-    scrollY,
-    [0, 50],
-    ["rgba(6, 0, 16, 0)", "rgba(6, 0, 16, 0.8)"]
-  );
+  // GPU-optimized scroll state listener without heavy JS backdrop-blur frame interpolation
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const isScrolled = latest > 30;
+    if (isScrolled !== scrolled) {
+      setScrolled(isScrolled);
+    }
+  });
 
-  const navBackdrop = useTransform(scrollY, [0, 50], ["blur(0px)", "blur(12px)"]);
-  const navBorder = useTransform(scrollY, [0, 50], ["1px solid rgba(255,255,255,0)", "1px solid rgba(255,255,255,0.1)"]);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Kunci scroll body saat mobile menu terbuka
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -33,7 +25,7 @@ const NavbarComponent = () => {
     }
   }, [mobileMenuOpen]);
 
-  // Auto-close mobile menu saat route berubah
+  // Auto-close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location]);
@@ -44,7 +36,6 @@ const NavbarComponent = () => {
     { title: 'Projects', link: '/projects' }
   ];
 
-  // Helper function: cek apakah link active
   const isActive = (path) => {
     if (path === '/') {
       return location.pathname === '/';
@@ -54,15 +45,16 @@ const NavbarComponent = () => {
 
   return (
     <>
-      {/* HEADER UTAMA */}
-      <motion.header
-        className="fixed top-0 left-0 right-0 z-50 w-full"
-        style={{
-          backgroundColor: navBackground,
-          backdropFilter: navBackdrop,
-          WebkitBackdropFilter: navBackdrop,
-          borderBottom: navBorder
-        }}
+      {/* HEADER UTAMA — GPU Accelerated Header */}
+      <header
+        className={`
+          fixed top-0 left-0 right-0 z-50 w-full
+          transition-all duration-300 ease-out will-change-transform
+          ${scrolled
+            ? 'bg-bg-base/85 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-purple-950/20 py-0'
+            : 'bg-transparent border-b border-transparent py-1'
+          }
+        `}
       >
         <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
 
@@ -85,7 +77,7 @@ const NavbarComponent = () => {
                 key={index}
                 to={item.link}
                 className={`
-                  text-sm font-roboto font-medium transition-all duration-300 relative group
+                  font-mono text-xs uppercase tracking-wider transition-all duration-300 relative group
                   ${isActive(item.link)
                     ? 'text-text-light'
                     : 'text-text-muted hover:text-text-light'
@@ -94,10 +86,10 @@ const NavbarComponent = () => {
               >
                 {item.title}
 
-                {/* Active indicator (garis bawah) */}
+                {/* Active indicator */}
                 <span
                   className={`
-                    absolute -bottom-1 left-0 h-[2px] bg-accent-glow transition-all duration-300
+                    absolute -bottom-1 left-0 h-[2px] bg-accent-glow/80 transition-all duration-300
                     ${isActive(item.link)
                       ? 'w-full'
                       : 'w-0 group-hover:w-full'
@@ -111,10 +103,10 @@ const NavbarComponent = () => {
             <Link
               to="/contact"
               className={`
-                ml-4 px-5 py-2 border rounded-full text-sm font-medium transition-all duration-300
+                ml-4 px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 border
                 ${isActive('/contact')
                   ? 'border-accent-glow bg-accent-glow/10 text-accent-glow'
-                  : 'border-border-highlight/30 text-text-light hover:bg-surface/50 hover:border-accent-glow'
+                  : 'border-white/[0.1] bg-white/[0.03] text-text-light hover:border-white/25 hover:bg-white/[0.06]'
                 }
               `}
             >
@@ -154,7 +146,7 @@ const NavbarComponent = () => {
           </button>
 
         </div>
-      </motion.header>
+      </header>
 
       {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>

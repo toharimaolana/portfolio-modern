@@ -1,69 +1,78 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 
-const ProjectCard = ({ project }) => {
+const cardVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+  }
+};
+
+const ProjectCard = React.memo(({ project }) => {
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[400px] w-full rounded-3xl overflow-hidden bg-surface cursor-pointer"
+      variants={cardVariants}
+      className="group relative w-full flex flex-col cursor-pointer"
     >
-      <Link to={`/projects/${project.id}`} className="block h-full w-full relative">
-        <motion.div 
-          className="absolute inset-0 w-full h-full"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
+      <RouterLink
+        to={`/projects/${project.id}`}
+        className="block w-full group focus:outline-none focus-visible:ring-1 focus-visible:ring-text-light/50 rounded-2xl"
+        aria-label={`View project details for ${project.title}`}
+      >
+        {/* Clean Image Container */}
+        <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-bg-surface/20 border border-white/[0.08] group-hover:border-white/20 transition-all duration-300 shadow-md">
           <img
             src={project.thumbnail}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-500"
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover object-top filter brightness-95 group-hover:brightness-100 group-hover:scale-[1.03] transition-all duration-500"
           />
-        </motion.div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 via-bg-base/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-        
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay" />
+          {/* Minimal Top-Right Action Arrow */}
+          <div className="absolute top-4 right-4 z-10">
+            <div className="w-9 h-9 rounded-full bg-bg-base/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-text-muted group-hover:text-accent-glow group-hover:border-accent-glow/40 transition-all duration-300">
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
+          </div>
+        </div>
 
-        <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 z-10">
-          
-          <motion.div
-            initial={{ opacity: 0.8, y: 0 }}
-            whileHover={{ y: -2 }}
-            className="self-start mb-3"
-          >
-            <span className="inline-block px-3 py-1 text-xs font-roboto font-bold tracking-widest uppercase text-bg-base bg-accent-glow rounded-full">
-              {project.category}
-            </span>
-          </motion.div>
+        {/* Typographic Content Below Image */}
+        <div className="pt-4 flex flex-col">
+          {/* Category & Year */}
+          <div className="flex items-center justify-between font-mono text-[0.7rem] uppercase tracking-wider text-text-muted mb-1">
+            <span>{project.category}</span>
+            {project.year && <span>{project.year}</span>}
+          </div>
 
-          <h3 className="font-poetsen text-2xl sm:text-3xl font-black tracking-tighter text-text-light leading-[1.1] mb-2 drop-shadow-md group-hover:text-white transition-colors duration-300">
+          {/* Title */}
+          <h3 className="font-poetsen text-xl sm:text-2xl font-bold uppercase text-text-light tracking-tight group-hover:text-accent-glow transition-colors duration-300 leading-snug">
             {project.title}
           </h3>
 
-          <div className="relative overflow-hidden max-h-0 group-hover:max-h-[100px] transition-all duration-500 ease-in-out">
-             <p className="font-roboto text-text-muted text-sm sm:text-base leading-relaxed pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-              {project.description}
-            </p>
-          </div>
-
-          <motion.div 
-            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-text-light opacity-0 group-hover:opacity-100 transition-all duration-300"
-            whileHover={{ rotate: 45, backgroundColor: "rgba(255,255,255,0.2)" }}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-            </svg>
-          </motion.div>
+          {/* Minimal Tech Tags */}
+          {project.tags && project.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 pt-2.5">
+              {project.tags.slice(0, 3).map((tag, tIdx) => (
+                <span
+                  key={tIdx}
+                  className="font-mono text-[0.68rem] bg-white/[0.03] border border-white/[0.08] px-2.5 py-0.5 rounded-full text-text-muted"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
-      </Link>
+      </RouterLink>
     </motion.div>
   );
-};
+});
+
+ProjectCard.displayName = 'ProjectCard';
 
 export default ProjectCard;
