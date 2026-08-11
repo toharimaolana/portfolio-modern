@@ -4,6 +4,7 @@ import CredentialsSection from '@/components/sections/CredentialsSection';
 import LogoLoop from '@/components/ui/LogoLoop';
 import TimelineSection from '@/components/sections/TimelineSection';
 import CTASection from '@/components/sections/CTASection';
+import SEO from '@/components/utils/SEO';
 
 import {
   SiReact,
@@ -67,6 +68,10 @@ const Divider = () => (
 const AboutPage = () => {
   return (
     <main className="bg-bg-base text-text-light min-h-screen">
+      <SEO
+        title="Tentang Mohamad Tohari Maolana (Tohari / Sito)"
+        description="Latar belakang, pengalaman, teknologi, dan perjalanan karir Mohamad Tohari Maolana (Tohari / Sito) — Frontend Engineer & UI/UX Specialist lulusan Universitas Pamulang."
+      />
       <AboutHero />
 
       {/* Tech Stack Marquee Section — Editorial Minimal Style */}

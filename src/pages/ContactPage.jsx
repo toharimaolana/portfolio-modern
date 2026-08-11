@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Check, Copy, ArrowUpRight, Send, Sparkles } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
 import { supabase, isSupabaseConfigured } from '../utils/supabaseClient';
+import SEO from '../components/utils/SEO';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -108,6 +109,10 @@ const ContactPage = () => {
 
   return (
     <main className="bg-bg-base min-h-screen text-text-light relative overflow-hidden">
+      <SEO
+        title="Hubungi Mohamad Tohari Maolana (Tohari / Sito)"
+        description="Mari berdiskusi dengan Mohamad Tohari Maolana (Tohari / Sito) mengenai pembuatan aplikasi web, proyek React.js, konsultasi UI/UX, atau tawaran kerja."
+      />
       {/* Background Ambient Glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[140px]" />

@@ -6,6 +6,7 @@ import {
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { projectService } from '../services/projectService';
+import SEO from '../components/utils/SEO';
 
 // Helper to generate clean HTML IDs for headings
 const slugify = (text) => {
@@ -185,6 +186,10 @@ const ProjectDetail = () => {
 
   return (
     <div className="bg-bg-base min-h-screen relative text-text-light selection:bg-accent-glow selection:text-bg-base">
+      <SEO
+        title={`${projectMetadata.title} — Mohamad Tohari Maolana (Tohari / Sito)`}
+        description={projectMetadata.description || `Studi kasus dan analisis teknis pengembangan proyek ${projectMetadata.title} oleh Mohamad Tohari Maolana (Tohari / Sito).`}
+      />
 
       {/* ════════ HEADER & META SECTION (CARDLESS SPLIT LAYOUT) ════════ */}
       <section className="relative pt-28 sm:pt-36 lg:pt-40 pb-10 px-6">

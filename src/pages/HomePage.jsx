@@ -7,6 +7,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import CredentialsSection from '@/components/sections/CredentialsSection';
 import CTASection from '@/components/sections/CTASection';
+import SEO from '@/components/utils/SEO';
 
 const Divider = () => (
   <div className="relative w-full max-w-[1200px] mx-auto px-6">
@@ -17,6 +18,10 @@ const Divider = () => (
 const HomePage = () => {
   return (
     <main className='min-h-screen bg-bg-base'>
+      <SEO
+        title="Mohamad Tohari Maolana (Tohari / Sito) — Frontend Engineer & UI/UX Specialist"
+        description="Portofolio resmi Mohamad Tohari Maolana (Tohari / Sito). Senior Frontend Engineer & UI/UX Specialist yang berfokus pada pembuatan aplikasi web React.js, Tailwind CSS, dan desain UI/UX interaktif."
+      />
       <HeroSection />
 
       {/* Interactive Curved Marquee Loop */}
