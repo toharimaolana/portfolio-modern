@@ -116,6 +116,52 @@ const SectionHeader = ({
     );
   }
 
+  // Variant: TESTIMONIALS / ENDORSEMENTS
+  if (variant === 'testimonials') {
+    return (
+      <div className="relative w-full flex flex-col items-center text-center pb-8 mb-6">
+        {number && (
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-12 select-none pointer-events-none z-0">
+            <span className="font-poetsen text-[8rem] sm:text-[10rem] font-black text-text-light/[0.02] leading-none tracking-tighter">
+              {number}
+            </span>
+          </div>
+        )}
+        <div className="relative z-10 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-2 font-mono text-[0.7rem] sm:text-[0.75rem] font-bold tracking-[0.25em] uppercase text-accent-glow mb-3"
+          >
+            <span>{subheading || 'LINKEDIN RECOMMENDATIONS'}</span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-poetsen text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] uppercase text-text-light leading-tight"
+          >
+            {heading}
+          </motion.h2>
+          {description && (
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="font-roboto text-sm sm:text-base text-text-muted max-w-xl mt-3 leading-relaxed"
+            >
+              {description}
+            </motion.p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // Variant: CTA / CONTACT (Full-width Awwwards Immersive Layout)
   if (variant === 'cta') {
     return (

@@ -6,6 +6,7 @@ import CurvedLoop from '@/components/ui/CurvedLoop';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import CredentialsSection from '@/components/sections/CredentialsSection';
+import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CTASection from '@/components/sections/CTASection';
 import SEO from '@/components/utils/SEO';
 
@@ -62,6 +63,10 @@ const HomePage = () => {
       <Divider />
 
       <CredentialsSection />
+
+      <Divider />
+
+      <TestimonialsSection />
 
       <Divider />
 

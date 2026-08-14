@@ -13,36 +13,41 @@ const socialLinks = {
 
 const FooterSection = () => {
   const [showScroll, setShowScroll] = useState(false);
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState(18);
   const [hasLiked, setHasLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // load likes from localStorage
+  // Load persistent like state & fetch global count from API
   useEffect(() => {
     try {
-      const stored = window.localStorage.getItem('portfolioLikes');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setLikes(parsed.count || 0);
-        setHasLiked(!!parsed.hasLiked);
+      const likedState = window.localStorage.getItem('portfolioHasLiked');
+      if (likedState === 'true') {
+        setHasLiked(true);
       }
     } catch {
       // ignore
     }
+
+    // Fetch real global like count from API
+    fetch('https://abacus.jasoncameron.dev/get/toharimaolana_portfolio/likes')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.value === 'number') {
+          setLikes(data.value + 18); // Real API count + baseline offset
+        }
+      })
+      .catch(() => {
+        try {
+          const stored = window.localStorage.getItem('portfolioLikesCount');
+          if (stored) setLikes(parseInt(stored, 10));
+        } catch {
+          // ignore
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
-  // persist likes
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(
-        'portfolioLikes',
-        JSON.stringify({ count: likes, hasLiked })
-      );
-    } catch {
-      // ignore
-    }
-  }, [likes, hasLiked]);
-
-  // scroll button visibility
+  // Scroll button visibility
   useEffect(() => {
     const checkScrollTop = () => {
       if (!showScroll && window.pageYOffset > 400) {
@@ -59,10 +64,26 @@ const FooterSection = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLike = () => {
-    if (!hasLiked) {
-      setLikes(prev => prev + 1);
-      setHasLiked(true);
+  const handleLike = async () => {
+    if (hasLiked) return;
+
+    // Optimistic UI update (always exactly +1 for smooth transition)
+    setHasLiked(true);
+    const newCount = likes + 1;
+    setLikes(newCount);
+
+    try {
+      window.localStorage.setItem('portfolioHasLiked', 'true');
+      window.localStorage.setItem('portfolioLikesCount', newCount.toString());
+    } catch {
+      // ignore
+    }
+
+    // Update global database in background
+    try {
+      await fetch('https://abacus.jasoncameron.dev/hit/toharimaolana_portfolio/likes');
+    } catch {
+      // ignore network errors, local state is already updated
     }
   };
 
@@ -141,7 +162,7 @@ const FooterSection = () => {
                   <span className={`inline-flex items-center justify-center h-5 w-5 rounded-full ${hasLiked ? 'animate-bounce' : ''}`}>
                     {hasLiked ? '❤️' : '🤍'}
                   </span>
-                  <span className="text-[0.7rem] sm:text-xs">{hasLiked ? 'VOTE PERSISTED' : 'SUPPORT SYSTEM'}</span>
+                  <span className="text-[0.7rem] sm:text-xs">{hasLiked ? 'THANKS FOR VOTING!' : 'LIKE THIS PORTFOLIO'}</span>
                 </div>
                 <span className="h-4 w-px bg-border-highlight/30" />
                 <span className="text-accent-glow font-bold text-[0.7rem] sm:text-xs">{likes} LIKES</span>
